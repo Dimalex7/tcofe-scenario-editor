@@ -1,0 +1,973 @@
+{
+    "id": "SGTTX-20",
+    "language": "EL",
+    "title": "Στρατηγικές Αποφάσεις σε Κυβερνοκρίσεις",
+    
+    "ui_texts": {
+        "area_topbar": "------- TOP BAR ------- ------- ------- ------- ------- -------",
+        "round_label": "Γύρος",
+        "day_label": "Ημέρα",
+        "ap_title": "AP",
+        "cs_title": "Cybersecurity State",
+        "bi_title": "Business Impact",
+        "budget_title": "Διαθέσιμο Budget",
+        "deadline_title": "Deadline Γύρου",
+        "trust_title": "Αξιοπιστία",
+        "popup_round_text1": "Οι ενέργειες κοστίζουν σε AP και Χρόνο.\n\nΑν ο χρόνος φτάσει στο deadline, η κρίση εξαπλώνεται και απολύεστε.\n\nIΑν τα AP σας τελειώσουν, δεν μπορείτε να εκτελέσετε άλλες ενέργειες και απολύεστε.\n\nΠαρακολουθείτε προσεκτικά τα AP και τον χρόνο. Αν κάποιο από τα δύο τελειώσει, αποτυγχάνετε.",
+        "popup_round_aps_title": "Διαθέσιμα APs",
+        "popup_round_deadline_title": "Deadline σε",
+        "area_buttonbar": "------- BUTTON BAR ------- ------- ------- ------- ------- -------",
+        "action_bar_label": "ΕΝΕΡΓΕΙΕΣ",
+        "restart_button": "ΕΝΑΡΞΗ ΑΠΟ ΤΗΝ ΑΡΧΗ",
+        "restart_saved_button": "ΕΠΑΝΑΦΟΡΑ",
+        "save_button": "ΑΠΟΘΗΚΕΥΣΗ ΠΡΟΟΔΟΥ",
+        "save_button_saving": "ΑΠΟΘΗΚΕΥΣΗ...",
+        "save_button_saved": "ΑΠΟΘΗΚΕΥΤΗΚΕ",
+        "save_button_failed": "ΑΠΟΤΥΧΙΑ",
+        "save_button_unavailable": "ΜΗ ΔΙΑΘΕΣΙΜΟ",
+        "exit_button": "ΕΞΟΔΟΣ",
+        "trade_aps": "ΑΝΤΑΛΛΑΓΗ APs",
+        "confirm_restart_title": "ΕΝΑΡΞΗ ΑΠΟ ΤΗΝ ΑΡΧΗ;",
+        "confirm_restart_text": "Η τρέχουσα πρόοδός σας θα χαθεί και δεν μπορεί να ανακτηθεί.",
+        "confirm_yes": "ΝΑΙ, ΑΠΟ ΤΗΝ ΑΡΧΗ",
+        "confirm_no": "ΑΚΥΡΟ",
+        "trade_title": "ΑΝΤΑΛΛΑΓΗ APs",
+        "trade_ap_label": "ΔΙΑΘΕΣΙΜΑ AP: {0}",
+        "trade_time_label": "ΥΠΟΛΟΙΠΟΣ ΧΡΟΝΟΣ: {0}",
+        "trade_limit_label": "ΑΝΤΑΛΛΑΓΕΣ ΓΥΡΟΥ: {0} / {1}",
+        "trade_spend_button": "-1 AP = +{0} ΛΕΠΤΑ",
+        "trade_gain_button": "+1 AP = -{0} ΛΕΠΤΑ",
+        "trade_close_button": "ΚΛΕΙΣΙΜΟ",
+        "area_left_panel": "------- LEFT PANEL ------- ------- ------- ------- ------- -------",
+        "scheduled_tasks_label": "Εργασίες",
+        "news_button": "Νέα",
+        "threats_button": "Απειλές",
+        "area_main": "------- MAIN PANEL ------- ------- ------- ------- ------- -------",
+        "network_button": "Δίκτυο",
+        "report_builder_button": "Δημιουργία Έκθεσης",
+        "fit_view_button": "Fit View",
+        "report_audience_label": "ΚΟΙΝΟ",
+        "report_type_label": "ΤΥΠΟΣ",
+        "report_tone_label": "ΤΟΝΟΣ",
+        "report_detail_label": "ΛΕΠΤΟΜΕΡΕΙΑ",
+        "report_technicality_label": "TEXNIKOI ΟΡΟΙ",
+        "report_scope_label": "ΠΕΔΙΟ",
+        "report_privacy_label": "ΜΕ ΠΡΟΣΩΠΙΚΑ ΔΕΔΟΜΕΝΑ",
+        "report_legal_label": "ΝΟΜΙΚΑ ΠΛΑΙΣΙΩΜΕΝΟ",
+        "report_send_button": "Send Report",
+        "area_right": "------- RIGHT PANEL ------- ------- ------- ------- ------- -------",
+        "evidence_repo_label": "ΕΥΡΗΜΑΤΑ",
+        "to_report_button": "Για την έκθεση",
+        "search_textbox": "Αναζήτηση",
+        "type_dropdown": "Όλοι οι τύποι",
+        "evidence_attach_button": "Προσθήκη στην Έκθεση"
+    },
+    
+    "enum_types_labels" : 
+    {
+        "network_layer_labels":
+        [
+            "CS State"
+        ],
+        "operational_state":
+        [
+            "Άγνωστη",
+            "Ενεργό",
+            "Απενεργοποιημένο",
+            "Σε Παύση",
+            "Σε Επαναφορά",
+            "Σε Επαναφόρτωση",
+            "Σε Επανεκκίνηση",
+            "Σβηστό",
+            "Απομονωμένο",
+            "Δικτυωμένο"
+        ],
+        "security_state":
+        [
+            "Άγνωστη",
+            "Ασφαλές",
+            "Σχετικά Ευάλωτο",
+            "Πολύ Ευάλωτο",
+            "Παραβιασμένο",
+            "Απομονωμένο",
+            "Μη Λειτουργικό",
+            "Κατεστραμμένο"
+        ],
+        "evidence_types": 
+        [
+            "",
+            "Ελέγχθηκε",
+            "Ευπάθεια",
+            "Με ετικέτα",
+            "Ενέργεια Ενίσχυσης",
+            "Ενέργεια Ωριμότητας Επ 1",
+            "Ενέργεια Ωριμότητας Επ 2",
+            "Πεδίο",
+            "Αδύναμη Πολιτική"
+        ],
+        "report_audiences":
+        [
+            "",
+            "CEO",
+            "CFO",
+            "CEO & CFO",
+            "Επιτροπή",
+            "Νομικό Τμήμα",
+            "DPO",
+            "Υπαλληλοι",
+            "IT Operations",
+            "Ομάδα IR",
+            "ΜΜΕ",
+            "SOC"
+        ],
+        "report_types" :
+        [
+            "",
+            "Ειδοποίηση",
+            "Περίληψη",
+            "Πλήρης Έκθεση"
+        ],
+        "report_tones" :
+        [
+            "",
+            "Ουδέτερη",
+            "Φιλική",
+            "Επίσημη"
+        ],
+        "report_detail_levels" :
+        [
+            "",
+            "Συνοπτική",
+            "Περιεκτική",
+            "Λεπτομερή"
+        ],
+        "report_technicalities" :
+        [
+            "",
+            "Τεχνική",
+            "Μη τεχνική"
+        ],
+        "report_scopes" :
+        [
+            "",
+            "Εσωτερική",
+            "Εξωτερική",
+            "Δημόσια"
+        ],
+        "report_creation_popups":
+        [
+            "Προσθέστε τουλάχιστον ένα  στοιχείο πριν στείλετε την έκθεση.",
+            "Δεν υπάρχουν διαθέσιμα APs.",
+            "Η έκθεση στάλθηκε."
+        ]
+    },
+    
+    "popup_messages": {
+        "window_title_info": "Πληροφορίες",
+        "window_title_deadline_warning": "Το Deadline Πλησιάζει",
+        "window_title_no_time": "Δεν υπάρχει αρκετός χρόνος",
+        "window_title_no_aps": "Περιορισμένα APs",
+        "window_title_non_performable": "Μη εκτελέσιμη ενέργεια",
+        "text_earned1ap": "Κέρδισες 1 AP",
+        "text_no_time": "Δεν υπάρχει χρόνος να εκτελέσεις",
+        "text_no_aps": "Δεν υπάρχουν αρκετά APs για να εκτελέσεις αυτήν την ενέργεια.",
+        "text_required_time": "Χρόνος που χρειάζεται",
+        "text_remaining_time": "Χρόνος που απομένει",
+        "text_vulnerability_found": "Εντοπίστηκαν ευπάθειες:",
+        "text_of_round_popup_title": "Στρατηγικές Αποφάσεις σε Κυβερνοκρίσεις:\nΠόντοι Ενέργειας (APs) & Χρόνος (deadlines)",
+        "text_of_round_popup_1": "Οι ενέργειες κοστίζουν σε πόντους ενέργειας (AP) και χρόνο.\nΑν το χρονόμετρο φτάσει το deadline, η κρίση θα έχει εξαπλωθεί και θα απολυθείς.\nΑν εξαντλήσεις τα APs, δεν θα μπορείς να εκτελέσεις καμία ενέργεια και θα απολυθείς.\nΠάντα να προσέχεις τα APs και το χρόνο σου. Αν εξαντληθεί οποιοδήποτε από τα δύο, θα αποτύχεις.",
+        "text_aps_title_of_round_popup": "Διαθέσιμα APs",
+        "text_deadline_title_of_round_popup": "Deadline σε",
+        "text_on_tutorials_action": "Συγχαρητήρια. Εκτέλεσες μια ενέργεια!!!",
+        "window_title_session_completed": "Το σενάριο ολοκληρώθηκε",
+        "window_title_session_failed": "Το σενάριο απέτυχε",
+        "text_session_failed_bi": "Το BI έχει πέσει κάτω από το αποδεκτό όριο. Ο οργανισμός έχει υποστεί σημαντική επιχειρησιακή διαταραχή. Χάσατε τη συνεδρία.",
+        "text_session_failed_ap": "Τα APs εξαντλήθηκαν.\nΔεν μπορείς να εκτελέσεις άλλες ενέργειες και η κρίση δεν μπορεί πλέον να αντιμετωπιστεί.\n\nΧάσατε τη συνεδρία.",
+        "text_report_not_includes_elements": "Η έκθεση δεν περιλαμβάνει τα κατάλληλα στοιχεία.",
+        "text_session_completed": "Συγχαρητήρια! Ολοκληρώσατε με επιτυχία τη συνεδρία.",
+        "text_warning_bi": "Το BI είναι σε κρίσιμο επίπεδο. Εάν η τιμή του μειωθεί και άλλο, ο οργανισμός θα υποστεί σημαντική επιχειρησιακή διαταραχή και η συνεδρία θα αποτύχει.",
+        "text_action_already_performed": "Η ενέργεια έχει ήδη εκτελεστεί. Η επανάληψη αυτής της ενέργειας δεν επιτρέπεται."
+    },
+    
+    "assets_texts":
+    [
+        {
+            "id": "base-sysid",
+            "title": "System",
+            "caption": "System",
+            "short_info": ""
+        },
+        {
+            "id": "sysid"
+        },
+        {
+            "id": "base-nw1",
+            "title": "Δίκτυο",
+            "caption": "Όνομα: Network Hall",
+            "short_info": "",
+            "description": ""
+        },
+        {
+            "id": "id0",
+            "x_baseAssetID_Comment": "base-nw1",
+            "title": "Network Hall",
+            "caption": "Το δίκτυο του οργανισμού",
+            "short_info": "",
+            "description": "Network Hall\nIP: 192.168.27.0:24, Μάσκα 255:255:255:0\nμε επίπεδη τοπολογία, μοναδικό υποδίκτυο, χωρίς DMZ & κατάτμηση."
+        },
+        {
+            "id": "base-router1",
+            "title": "Router",
+            "caption": "SOHO NAT Gateway / Fiber 100/20 Mbps",
+            "short_info": "",
+            "description": ""
+        },
+        {
+            "id": "id1",
+            "baseAssetID": "base-router1",
+            "title": "Router",
+            "caption": "SOHO NAT Gateway / Fiber 100/20 Mbps",
+            "short_info": "",
+            "description": "SOHO NAT Gateway / Fiber 100/20 Mbps, Internet gateway και perimeter firewall για το εσωτερικό δίκτυο."
+        },
+        {
+            "id": "base-file-server1",
+            "title": "File Server",
+            "caption": "192.168.1.10 / Windows Server",
+            "short_info": "",
+            "description": "Όνομα: File Server\nIP: 192.168.1.10\nOS: Windows Server\nΡόλος: Αποθήκευση αρχείων & κοινόχρηστοι φάκελοι."
+        },
+        {
+            "id": "id2",
+            "baseAssetID": "base-file-server1",
+            "title": "File Server",
+            "caption": "192.168.1.10 / Windows Server",
+            "short_info": "",
+            "description": "IP: 192.168.1.10, OS: Windows Server. Παρέχει αποθήκευση αρχείων, Προστατεύεται με κοινόχρηστους φακέλους ελεγχόμενης πρόσβασης. Η κατάσταση ενημερώσεων είναι άγνωστη."
+        },
+        {
+            "id": "base-app-server1",
+            "title": "Application Server",
+            "caption": "192.168.1.20 / Ubuntu - MySQL & Apache",
+            "short_info": "",
+            "description": "Όνομα: App Server\nIP: 192.168.1.20\nOS: Ubuntu\nΥπηρεσίες: Apache Web Server, MySQL Database\nΕκτεθειμένες θύρες: 80, 3306."
+        },
+        {
+            "id": "id7",
+            "baseAssetID": "base-app-server1",
+            "title": "Application Server",
+            "caption": "192.168.1.20 / Ubuntu - MySQL & Apache",
+            "short_info": "",
+            "description": "Ubuntu (IP: 192.168.1.20), περιλαμβάνει έναν Apache server & μια ΒΔ MySQL.\nΦιλοξενεί την διαδικτυακή εφαρμογή που απευθύνεται στους πελάτες και τις υποστηρικτικές υπηρεσίες βάσης δεδομένων."
+        },
+        {
+            "id": "base-email-server1",
+            "title": "Email Server",
+            "caption": "192.168.1.30",
+            "short_info": "",
+            "description": "Email Server\nIP: 192.168.1.30\nΡόλος: Υπηρεσίες αλληλογραφίας\nΤύπος: Software-based server."
+        },
+        {
+            "id": "id4",
+            "baseAssetID": "base-email-server1",
+            "title": "Email Server",
+            "caption": "",
+            "short_info": "Όνομα: Email Server\nIP: 192.168.1.30\nΡόλος: Υπηρεσίες Mail\nΤύπος: Software-based server.",
+            "description": ""
+        },
+        {
+            "id": "base-nas1",
+            "title": "NAS Device",
+            "caption": "Synology NAS / Web Port 5000 / Backups",
+            "short_info": ""
+        },
+        {
+            "id": "id5",
+            "baseAssetID": "base-nas1",
+            "title": "NAS",
+            "caption": "Synology NAS / Web Port 5000 / Backups",
+            "short_info": "",
+            "description": "Δικτυακά προσαρτημένη αποθήκευση (NAS) για αντίγραφα ασφαλείας και κοινόχρηστα δεδομένα, Web Interface: port 5000."
+        },
+        {
+            "id": "base-workstation-pool1",
+            "title": "Workstation Pool",
+            "caption": "35+ Machines (15x Win10, 20x Win7)",
+            "short_info": "",
+            "description": "Όνομα: Workstation Pool\nΜέγεθος: 35+ μηχανήματα\nOS: 15x Windows 10, 20x Windows 7\nΡόλος: Τερματικά υπαλλήλων & καθημερινές εργασίες."
+        },
+        {
+            "id": "id6",
+            "baseAssetID": "base-workstation-pool1",
+            "title": "Workstation Pool",
+            "caption": "35+ Machines (15x Win10, 20x Win7)",
+            "short_info": "",
+            "description": "Τερματικά εργαζομένων με Win 10 & Win 7. Αρκετές συσκευές διαθέτουν ληγμένο antivirus ή βασίζονται στο Windows Defender. Δεν εφαρμόζεται πολιτική περιορισμού χρήσης θυρών USB."
+        },
+        {
+            "id": "base-nw-printers1",
+            "title": "Network Printers",
+            "caption": "3x Devices / Default Credentials",
+            "short_info": "",
+            "description": "Όνομα: Network Printers\nΣυσκευές: 3 εκτυπωτές δικτύου\nΘέμα ρυθμίσεων: Default credentials\nΡόλος: Κοινόχρηστες υπηρεσίες εκτύπωσης."
+        },
+        {
+            "id": "base-access-points1",
+            "title": "Wi-Fi Access Points",
+            "caption": "2x APs (Guest + Employee)",
+            "short_info": "",
+            "description": "Όνομα: Wi-Fi Access Points\nΣυσκευές: 2 access points\nΔίκτυα: Guest Wi-Fi & Employee Wi-Fi\nΡόλος: Ασύρματη πρόσβαση στο δίκτυο."
+        },
+        {
+            "id": "base-active-directory1",
+            "title": "Active Directory",
+            "caption": "Domain Controller / Identity Management",
+            "short_info": "",
+            "description": "Active Directory\nΡόλος: Domain Controller & Διαχείριση Ταυτότητας\nΣυνδεδεμένα assets: File Server, App Server, Email Server, Workstation Pool."
+        },
+        {
+            "id": "id9",
+            "baseAssetID": "base-active-directory1",
+            "title": "Active Directory",
+            "caption": "Domain Controller / Identity Management",
+            "short_info": "",
+            "description": ""
+        },
+        {
+            "id": "base-policy-center1",
+            "title": "Policy Center",
+            "caption": "",
+            "short_info": "",
+            "description": "Policy Center: Διαχειρίζεται τα εξής\nPassword Policies\nΠολιτικές\nκ.ά."
+        },
+        {
+            "id": "id10",
+            "baseAssetID": "base-policy-center1",
+            "title": "Policy Center",
+            "caption": "Contains the policies of the organization",
+            "short_info": "",
+            "description": "Kέντρο Πολιτικών.\nΠεριλαμβάνει Διαδικασίες Ανταπόκρισης σε Περιστατικά και Εκπαιδεύσεις Εργαζομένων."
+        }
+    ],
+
+    "actions_texts":
+    [
+        {
+            "id": "base-acknowledge1",
+            "title": "acknowledge"
+        },
+        {"//":"-------INSPECT ACTIONS-------"},
+        {
+            "id": "base-inspect1",
+            "title": "inspect"
+        },
+        {
+            "id": "nw-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος Δικτύου"
+        },
+        {
+            "id": "policy-center-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος Policy Center"
+        },
+        {
+            "id": "router-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος Router"
+        },
+        {
+            "id": "file-server-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος File Server"
+        },
+        {
+            "id": "app-srv-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος Application Server"
+        },
+        {
+            "id": "email-server-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος Email Server"
+        },
+        {
+            "id": "nas-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος NAS Server"
+        },
+        {
+            "id": "workstation-pool-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος Workstation Pool"
+        },
+        {
+            "id": "active-directory-inspect",
+            "baseActionID": "base-inspect1",
+            "title": "Έλεγχος Active Directory"
+        },
+        {"//":"-------CREATE REPORT-------"},
+        {
+            "id": "base-create-report1",
+            "title": "Δημioυργία Αναφοράς"
+        },
+        {
+            "id": "create-report1",
+            "baseActionID": "base-create-report1",
+            "title": "Δημioυργία Αναφοράς"
+        },
+        {"//":"-------TURNOFF-------"},
+        {
+            "id": "base-turnoff1",
+            "title": "Απενεργοποίηση"
+        },
+        {
+            "id": "workstation-pool-turnoff",
+            "baseActionID": "base-turnoff1",
+            "title": "Απενεργοποίηση Workstation Pool"
+        },
+        {"//":"-------TURNON-------"},
+        {
+            "id": "base-turnon1",
+            "title": "Ενεργοποίηση"
+        },
+        {
+            "id": "workstation-pool-turnon",
+            "baseActionID": "base-turnon1",
+            "title": "Ενεργοποίηση Workstation Pool"
+        },
+        {"//":"-------ISOLATE ACTIONS-------"},
+        {
+            "id": "base-isolate1",
+            "title": "Isolate"
+        },
+        {
+            "id": "network-isolate",
+            "baseActionID": "base-isolate1",
+            "title": "Απομόνωση από το Internet"
+        },
+        {
+            "id": "app-server-isolate",
+            "baseActionID": "base-isolate1",
+            "title": "Απομόνωση Application Server"
+        },
+        {
+            "id": "email-server-isolate",
+            "baseActionID": "base-isolate1",
+            "title": "Απομόνωση Email Server"
+        },
+        {
+            "id": "nas-isolate",
+            "baseActionID": "base-isolate1",
+            "title": "Απομόνωση NAS"
+        },
+        {"//":"-------CONNECT ACTIONS-------"},
+        {
+            "id": "base-connect1",
+            "title": "Σύνδεση"
+        },
+        {
+            "id": "network-connect",
+            "baseActionID": "base-connect1",
+            "title": "Σύνδεση στο Internet"
+        },
+        {
+            "id": "app-server-connect",
+            "baseActionID": "base-connect1",
+            "title": "Σύνδεση Application Server"
+        },
+        {
+            "id": "email-server-connect",
+            "baseActionID": "base-connect1",
+            "title": "Σύνδεση Email Server"
+        },
+        {
+            "id": "nas-connect",
+            "baseActionID": "base-connect1",
+            "title": "Σύνδεση NAS"
+        },
+        {"//":"-------CHECK LOG ACTIONS-------"},
+        {
+            "id": "base-check-logs1",
+            "title": "Έλεγχος Logs"
+        },
+        {
+            "id": "router-check-logs1",
+            "baseActionID": "base-check-logs1",
+            "title": "Έλεγχος Logs στο Router/Firewall"
+        },
+        {
+            "id": "file-server-check-logs1",
+            "baseActionID": "base-check-logs1",
+            "title": "Έλεγχος Logs στο File Server"
+        },
+        {
+            "id": "active-directory-check-logs1",
+            "baseActionID": "base-check-logs1",
+            "title": "Έλεγχος Logs στο Active Directory"
+        },
+        {"//":"------- VULNERABILITY SCAN ------- ------- -------"},
+        {
+            "id": "base-vulnerability-scan1",
+            "title": "Έλεγχος Ευπαθειών"
+        },
+        {
+            "id": "app-srv-vulnerability-scan",
+            "baseActionID": "base-vulnerability-scan1",
+            "title": ""
+        },
+        {
+            "id": "router-vulnerability-scan",
+            "baseActionID": "base-vulnerability-scan1",
+            "title": ""
+        },
+
+        {"//":"------- MFA ------- ------- -------"},
+        {
+            "id": "base-action-mfa-conf1",
+            "title": "Ενεργοποίηση MFA για Admins"
+        },
+        {
+            "id": "action-mfa-conf1",
+            "baseActionID": "base-action-mfa-conf1"
+        },
+        {"//":"------- FIREWALL RULE ------- ------- -------"},
+        {
+            "id": "base-action-firewallrule-rdp1",
+            "title": "Προσθή Κανόνα Firewall: Περιορισμός RDP μέσω VPN"
+        },
+        {
+            "id": "action-firewallrule-rdp1",
+            "baseActionID": "base-action-firewallrule-rdp1"
+        },
+        {"//":"------- CONTINUOUS LOGIN ------- ------- -------"},
+        {
+            "id": "base-action-continuous-login-monitoring1",
+            "title":"Συνεχής παρακολούθηση αποτυχημένων συνδέσεων"
+        },
+        {
+            "id": "action-continuous-login-monitoring1",
+            "baseActionID": "base-action-continuous-login-monitoring1",
+            "title": "Συνεχής παρακολούθηση αποτυχημένων συνδέσεων"
+        },
+        {"//":"------- ORG WIDE MFA ------- ------- -------"},
+        {
+            "id": "base-action-org-wide-mfa1",
+            "title": "Υλοποίηση MFA σε όλο τον Οργανισμό"
+        },
+        {
+            "id": "action-org-wide-mfa1",
+            "baseActionID": "base-action-org-wide-mfa1",
+            "title": "Υλοποίηση MFA σε όλο τον Οργανισμό"
+        },
+        {"//":"------- MATURE 2 PASSWORD POLICY ------- ------- -------"},
+        {
+            "id": "base-action-mature2-password-policy",
+            "title": "Εφαρμογή Πολιτικής Κωδικών Ωριμότητας 2"
+        },
+        {
+            "id": "action-mature2-password-policy",
+            "baseActionID": "base-action-mature2-password-policy",
+            "title": "Εφαρμογή Πολιτικής Κωδικών Ωριμότητας 2"
+        },
+        {"//":"------- ------- ------- ------- -------"},
+        {
+            "id": "password_reset_request1",
+            "title": "Αίτημα password reset για όλους"
+        },
+        {
+            "id": "base-action-vpn-deployment1",
+            "title": "Εγκατάσταση VPN Gateway"
+        },
+        {
+            "id": "action-vpn-deployment1",
+            "title": "",
+            "baseActionID": "base-action-vpn-deployment1"
+        },
+        {
+            "id": "policy-center-train-employees1",
+            "baseActionID": "",
+            "title": "Εκπαίδευση Προσωπικού"
+        },
+        {
+            "id": "action-start-login-monitoring1",
+            "baseActionID": "",
+            "title": "Εκκίνηση παρακολούθησης αποτυχημένων συνδέσεων"
+        },
+        {
+            "id": "policy-center-schedule-training-program1",
+            "baseActionID": "",
+            "title": "Προγραμματισμός Περιοδικών Εκπαιδεύσεων"
+        }
+    ],
+
+    "evidence_texts":
+    [
+        {
+            "id": "evi-nw-inspected",
+            "title": "Έλεγχος Δικτύου",
+            "summaryText": "Η επιθεώρηση δικτύου αποκάλυψε αρκετές αδυναμίες",
+            "detailedText": "Η επιθεώρηση δικτύου αποκάλυψε αρκετές αδυναμίες",
+            "reportText": "Η επιθεώρηση δικτύου αποκάλυψε αρκετές αδυναμίες"
+        },
+        {
+            "id": "evi-nw-flat-topology",
+            "title": "Επίπεδη Τοπολογία Δικτύου Μοναδικού Υποδικτύου",
+            "summaryText": "Χρησιμοποιείται επίπεδη τοπολογία μοναδικού υποδικτύου",
+            "detailedText": "Χρησιμοποιείται επίπεδη τοπολογία μοναδικού υποδικτύου",
+            "reportText": "Χρησιμοποιείται επίπεδη τοπολογία μοναδικού υποδικτύου"
+        },
+        {
+            "id": "evi-nw-no-segmentation-dmz-vpn",
+            "title": "Απουσία Κατάτμησης Δικτύου, VPN και DMZ",
+            "summaryText": "Δεν υπάρχει κατάτμηση δικτύου και VPN. Δεν έχει ρυθμιστεί DMZ",
+            "detailedText": "Δεν υπάρχει κατάτμηση δικτύου και VPN. Δεν έχει ρυθμιστεί DMZ",
+            "reportText": "Δεν υπάρχει κατάτμηση δικτύου και VPN. Δεν έχει ρυθμιστεί DMZ"
+        },
+        {
+            "id": "evi-pc-inspected",
+            "title": "Έλεγχος Policy Center",
+            "summaryText": "Το Κέντρο Πολιτικών αποκάλυψε μια αδυναμία",
+            "detailedText": "Το Κέντρο Πολιτικών αποκάλυψε μια αδυναμία",
+            "reportText": "Το Κέντρο Πολιτικών αποκάλυψε μια αδυναμία"
+        },
+        {
+            "id": "evi-pc-no-password-policy",
+            "title": "Απουσία Πολιτικής Δημιουργίας Κωδικών Πρόσβασης",
+            "summaryText": "Δεν υπάρχει πολιτική δημιουργίας κωδικών πρόσβασης",
+            "detailedText": "Δεν έχει οριστεί πολιτική δημιουργίας κωδικών πρόσβασης",
+            "reportText":"Δεν έχει οριστεί πολιτική δημιουργίας κωδικών πρόσβασης"
+        },
+        {
+            "id": "evi-router-inspected",
+            "title": "Έλεγχος Router",
+            "summaryText": "Ο Έλεγχος του Router αποκάλυψε μια αδυναμία",
+            "detailedText": "Ο Έλεγχος του Router αποκάλυψε μια αδυναμία",
+            "reportText": "Ο Έλεγχος του Router αποκάλυψε μια αδυναμία"
+        },
+        {
+            "id": "evi-fs-inspected",
+            "title": "File Server Ελέχθηκε",
+            "summaryText": "Ο έλεγχος του διακομιστή αρχείων δεν αποκάλυψε ευπάθειες",
+            "detailedText": "Ο έλεγχος του διακομιστή αρχείων δεν αποκάλυψε ευπάθειες. Ωστόσο, αποκάλυψε μια αδύναμη πολιτική επιπέδου ωριμότητας 1.",
+            "reportText": "Ο έλεγχος του διακομιστή αρχείων δεν αποκάλυψε ευπάθειες. Ωστόσο, αποκάλυψε μια αδύναμη πολιτική επιπέδου ωριμότητας 1."
+        },
+        {
+            "id": "evi-fs-manual-patching",
+            "title": "Χειροκίνητη Ενημέρωση του File Server",
+            "summaryText": "O File Server ενημερώνεται όταν ο admin είναι διαθέσιμος",
+            "detailedText": "Ο File Server (διακομιστής αρχείων) διαθέτει διαδικασία διαχείρισης ενημερώσεων Επιπέδου Ωριμότητας 1. Η χειροκίνητη εφαρμογή ενημερώσεων ενδέχεται να προκαλέσει καθυστερήσεις στις κρίσιμες ενημερώσεις, αυξάνοντας την έκθεση σε ευπάθειες.",
+            "reportText": "Ο File Server (διακομιστής αρχείων) διαθέτει διαδικασία διαχείρισης ενημερώσεων Επιπέδου Ωριμότητας 1. Η χειροκίνητη εφαρμογή ενημερώσεων ενδέχεται να προκαλέσει καθυστερήσεις στις κρίσιμες ενημερώσεις, αυξάνοντας την έκθεση σε ευπάθειες."
+        },
+        {
+            "id": "evi-app-srv-inspected",
+            "title": "Application Server Ελέχθηκε",
+            "summaryText": "Ο έλεγχος του Application Server αποκάλυψε ανησυχίες",
+            "detailedText": "Ο έλεγχος του Application Server (διακομιστή εφαρμογών) αποκάλυψε θέματα σχετικά με τον χειρισμό εισόδου (input handling) και πιθανούς κινδύνους GDPR.",
+            "reportText": "Ο έλεγχος του Application Server (διακομιστή εφαρμογών) αποκάλυψε θέματα σχετικά με τον χειρισμό εισόδου (input handling) και πιθανούς κινδύνους GDPR."
+        },
+        {
+            "id": "evi-nas-inspected",
+            "title": "NAS Ελέγχθηκε",
+            "summaryText": "Ο έλεγχος της NAS αποκάλυψε σημαντικά ζητήματα",
+            "detailedText": "Ο έλεγχος της συσκευής NAS αποκάλυψε μια σημαντική ευπάθεια και αδύναμες πολιτικές.",
+            "reportText": "Ο έλεγχος της συσκευής NAS αποκάλυψε μια σημαντική ευπάθεια και αδύναμες πολιτικές."
+        },
+        {
+            "id": "evi-nas-no-offsite-backup-and-testing",
+            "title": "No Offsite or Cloud Backups & Backup Testing",
+            "summaryText": "Χειροκεντρικό backup, χωρίς αντίγραφα εκτός έδρας ή στο cloud και δοκιμή",
+            "detailedText": "Εκτελείται χειροκίνητο εβδομαδιαίο πλήρες backup, χωρίς αντίγραφα εκτός έδρας ή cloud. Τα αντίγραφα δεν δομιμάζονται, και η επαναφορά είναι επισφαλής.",
+            "reportText": "Εκτελείται χειροκίνητο εβδομαδιαίο πλήρες backup, χωρίς αντίγραφα εκτός έδρας ή cloud. Τα αντίγραφα δεν δομιμάζονται, και η επαναφορά είναι επισφαλής."
+        },
+        {
+            "id": "evi-nas-default-credentials",
+            "title": "Εξ Ορισμού Κωδικοί NAS",
+            "summaryText": "Η διεπαφή του NAS είναι εκτεθειμένη με εξ ορισμού κωδικούς",
+            "detailedText": "Η διεπαφή ιστού του NAS είναι εκτεθειμένη στη θύρα 5000 με εξ ορισμού (προεπιλεγμένα) κωδικούς πρόσβασης και έτσι είναι προσβάσιμη σε όλους.",
+            "reportText":"Η διεπαφή ιστού του NAS είναι εκτεθειμένη στη θύρα 5000 με εξ ορισμού (προεπιλεγμένα) κωδικούς πρόσβασης και έτσι είναι προσβάσιμη σε όλους."
+        },
+        {
+            "id": "evi-ws-expired-av",
+            "title": "Ληγμένη Προστασία Τερματικών Σημείων",
+            "summaryText": "Αρκετές συσκευές διαθέτουν ληγμένο antivirus ή βασίζονται στο Windows Defender",
+            "detailedText": "Οκτώ συσκευές διαθέτουν ληγμένο εμπορικό antivirus, ενώ οι υπόλοιπες βασίζονται αποκλειστικά στο Windows Defender.",
+            "reportText":"Οκτώ συσκευές διαθέτουν ληγμένο εμπορικό antivirus, ενώ οι υπόλοιπες βασίζονται αποκλειστικά στο Windows Defender."
+        },
+        {
+            "id": "evi-ws-unrestricted-usb",
+            "title": "Ανεξέλεγκτη Χρήση Θυρών USB",
+            "summaryText": "Υψηλή χρήση οδηγών USB και απουσία πολιτικής περιορισμού",
+            "detailedText": "Η χρήση οδηγών USB είναι υψηλή και δεν υπάρχει πολιτική περιορισμού της.",
+            "reportText":"Η χρήση οδηγών USB είναι υψηλή και δεν υπάρχει πολιτική περιορισμού της."
+        },
+        {
+            "id": "evi-app-srv-sql-injection-possible",
+            "title": "Πιθανότητα SQL Injection στον Application Server",
+            "summaryText": "Input handling μη ασφαλές. Ευπάθεια σε SQL injection.",
+            "detailedText": "To Input handling (χειρισμός εισόδου) στην πύλη πελατών είναι μη ασφαλής και είναι δυνατή η SQL injection. Πιθανή υποχρέωση γνωστοποίησης βάσει του Άρθρου 33 του GDPR σε περίπτωση παραβίασης δεδομένων. Η σύνδεση με το router και to Active Directory, αυξάνουν το ρίσκο.",
+            "reportText":"To Input handling (χειρισμός εισόδου) στην πύλη πελατών είναι μη ασφαλής και είναι δυνατή η SQL injection. Πιθανή υποχρέωση γνωστοποίησης βάσει του Άρθρου 33 του GDPR σε περίπτωση παραβίασης δεδομένων. Η σύνδεση με το router και to Active Directory, αυξάνουν το ρίσκο."
+        },
+        {
+            "id": "evi-router-rdp-exposed",
+            "title": "Οι θύρες του Router εκτεθημένες",
+            "summaryText": "Οι θύρες SMTP, HTTP & RDP είναι εκτεθιμένες.",
+            "detailedText": "Οι θύρες του Router 25 (SMTP), 80 (HTTP) & 3389 (RDP) είναι άμεσα εκτεθειμένες στη δημόσια διεύθυνση IP.",
+            "reportText": "Οι θύρες του Router 25 (SMTP), 80 (HTTP) & 3389 (RDP) είναι άμεσα εκτεθειμένες στη δημόσια διεύθυνση IP."
+        },
+        {
+            "id": "evi-VPN-schedule-info1",
+            "title": "Η εγκατάσταση VPN προγραμματίστηκε",
+            "summaryText": "οι εργαζόμενοι θα χρησιμοποιούν VPN για απομακρυσμένη πρόσβαση σύντομα",
+            "detailedText": "Η εγκατάσταση πύλης VPN έχει προγραμματιστεί. Οι εργαζόμενοι θα χρησιμοποιούν VPN για απομακρυσμένη πρόσβαση μετά από ένα σύντομο χρονικό διάστημα.",
+            "reportText": "Η εγκατάσταση πύλης VPN έχει προγραμματιστεί. Οι εργαζόμενοι θα χρησιμοποιούν VPN για απομακρυσμένη πρόσβαση μετά από ένα σύντομο χρονικό διάστημα."
+        },
+        {
+            "id": "evi-policy-center-personnel-training-completed",
+            "title": "Ολοκλήρωση Εκπαίδευσης",
+            "summaryText": "Η εκπαίδευση του προσωπικού ολοκληρώθηκε.",
+            "detailedText": "Οι εργαζόμενοι έλαβαν βασικές γνώσεις σχετικά με το phishing, τη διαχείριση κωδικών, την αναφορά ύποπτης δραστηριότητας και τον ασφαλή χειρισμό ευαίσθητων πληροφοριών.",
+            "reportText": "Οι εργαζόμενοι έλαβαν βασικές γνώσεις σχετικά με το phishing, τη διαχείριση κωδικών, την αναφορά ύποπτης δραστηριότητας και τον ασφαλή χειρισμό ευαίσθητων πληροφοριών."
+        },
+        {
+            "id": "evi-hardening-mfa-conf1",
+            "title": "MFA για Διαχειριστές Ενεργοποιήθηκε",
+            "summaryText": "Οι απομακρυσμένες συνεδρίες διαχειριστών απαιτούν πλέον MFA",
+            "detailedText": "Το MFA ενεργοποιήθηκε στο Active Directory για τους λογαριασμούς διαχειριστών. Οι απομακρυσμένες συνεδρίες διαχειριστών απαιτούν πλέον MFA.",
+            "reportText":"Το MFA ενεργοποιήθηκε στο Active Directory για τους λογαριασμούς διαχειριστών. Οι απομακρυσμένες συνεδρίες διαχειριστών απαιτούν πλέον MFA"
+        },
+        {
+            "id": "evi-hardening-rdp-fixed",
+            "title": "Η έκθεση του RDP Περιορίστηκε",
+            "summaryText": "Η θύρα RDP 3389 δεν είναι πλέον εκτεθειμένη στη δημόσια IP",
+            "detailedText": "Κανόνας Firewall μπλοκάρει το εισερχόμενο TCP/3389 από το WAN και περιορίζει την πρόσβαση RDP αποκλειστικά στο VPN tunnel.",
+            "reportText":"Κανόνας Firewall μπλοκάρει το εισερχόμενο TCP/3389 από το WAN και περιορίζει την πρόσβαση RDP αποκλειστικά στο VPN tunnel."
+        },
+        {
+            "id": "evi-policy-center-schedule-training-program",
+            "title": "Πρόγραμμα Εκπαίδευσης Προσωπικού",
+            "summaryText": "Ορίστηκε πρόγραμμα περιοδικών εκπαιδευτικών συνεδριών",
+            "detailedText": "Ο οργανισμός όρισε ένα πρόγραμμα περιοδικών εκπαιδεύσεων του προσωπικού στην κυβερνοασφάλεια.",
+            "reportText": "Ο οργανισμός όρισε ένα πρόγραμμα περιοδικών εκπαιδεύσεων του προσωπικού στην κυβερνοασφάλεια."
+        }
+    ],
+
+    "triggers_texts":
+    [
+        {
+            "id": "trig-info-change-on-nw-inspect",
+            "info": "\nIP: 192.168.27.0:24\nμε επίπεδη τοπολογία, μοναδικό υποδίκτυο και χωρίς DMZ & κατάτμηση"
+        },
+        {
+            "id": "trig-info-change-on-router-inspect",
+            "info": "Περιλαμβάνει δρομολογητή SOHO NAT με λειτουργικότητα τείχους προστασίας, αν και οι θύρες 25 (SMTP), 80 (HTTP) & 3389 (RDP) είναι εκτεθειμένες δημόσια."
+        },
+        {
+            "id": "trig-info-change-on-fs-inspect",
+            "info": "Windows Server που παρέχει αποθήκευση αρχείων με προστατευμένους κοινόχρηστους φακέλους ελεγχόμενης πρόσβασης. Οι ενημερώσεις στον διακομιστή εφαρμόζονται χειροκίνητα, αλλά είναι ασφαλής."
+        },
+        {
+            "id": "trig-info-change-on-app-srv-inspect",
+            "info": "Διακομιστής Ubuntu που φιλοξενεί τον Apache web server με υπηρεσίες ΒΔ MySQL. SQL injection είναι εφικτό. Πιθανός κίνδυνος GDPR."
+        },
+        {
+            "id": "trig-info-change-on-nas-inspect",
+            "info": "Δικτυακή αποθήκευση (NAS) για κοινόχρηστα δεδομένα και χειροκίνητα backup, χωρίς offsite/cloud αντίγραφο ή δοκιμές. Διαθέτει προεπιλεγμένους κωδικούς."
+        },
+        {
+            "id": "trig-info-change-on-wp-inspect",
+            "info": "Σταθμοί εργασίας εργαζομένων, περιλαμβανομένων συσκευών Windows 10 & Windows 7. Η προστασία τερματικών σημείων (endpoint protection) και η χρήση θυρών USB απαιτούν αναθεώρηση."
+        },
+        {
+            "id": "trig-description-change-on-fs-inspect",
+            "info": "IP: 192.168.1.10, Windows Server, Παρέχει αποθήκευση αρχείων,\nΠροστατεύεται με κοινόχρηστους φακέλους ελεγχόμενης πρόσβασης. Οι ενημερώσεις στον διακομιστή εφαρμόζονται χειροκίνητα, αλλά είναι ασφαλής."
+        },
+        {
+            "id": "trig-description-change-on-app-srv-inspect",
+            "info": "Ο Ubuntu server που φιλοξενεί έναν Apache web server με υπηρεσίες ΒΔ MySQL.\nΠεριέχει ευαίσθητα δεδομένα πελατών και ο σωστός χειρισμός εισόδου (input handling) είναι κρίσιμος, καθώς σε περίπτωση περιστατικού ενδέχεται να προκύψουν υποχρεώσεις γνωστοποίησης βάσει του Άρθρου 33 του GDPR."
+        },
+        {
+            "id": "trig-description-change-on-nas-inspect",
+            "info": "Δικτυακή αποθήκευση (NAS) για backup/δεδομένα. Διεπαφή: Θύρα 5000 με προεπιλεγμένους κωδικούς. Τα αντίγραφα ασφαλείας γίνονται χειροκίνητα, χωρίς offsite/cloud αντίγραφο ή δοκιμές επαναφοράς."
+        },
+        {
+            "id": "trig-subject-info-change-on-wp-inspection",
+            "info": "Τερματικά εργαζομένων\nOS: Windows 10 & Windows 7,\nΑρκετές συσκευές διαθέτουν ληγμένο antivirus ή βασίζονται αποκλειστικά στο Windows Defender.\nΔεν εφαρμόζεται πολιτική περιορισμού χρήσης θυρών USB."
+        },
+        {
+            "id": "trig-subject-info-change-vpn-deployment1",
+            "info": "Η εγκατάσταση πύλης VPN έχει προγραμματιστεί. Οι εργαζόμενοι θα χρησιμοποιούν VPN για απομακρυσμένη πρόσβαση σύντομα."
+        },
+        {
+            "id": "trig-subject-info-change-mfa-conf1",
+            "info": "Active Directory\nΕλεγκτής Τομέα & Διαχείριση Ταυτοτήτων\nΣύνδεση με: File / Application / Email Servers, Workstation Pool\n\nΕνεργοποιήθηκε το MFA για όλους τους Admin Λογαριασμούς."
+        },
+        {
+            "id": "trig-subject-info-change-firewallrule-rdp1",
+            "info": "Όνομα: Router\nIP: 192.168.27.1/24\nΜάσκα: 255.255.255.0\nΤο εύρημα έκθεσης RDP αφαιρέθηκε: το εισερχόμενο TCP/3389 από WAN μπλοκαρίστηκε και το RDP περιορίστηκε μόνο στο VPN tunnel."
+        },
+        {
+            "id": "trig-present-info-on-base-inspect",
+            "info": ""
+        },
+        {
+            "id": "trig-base-goal5-present-info",
+            "info": "Ο χρήστης πέρασε σε επαναλαμβανόμενους ελέγχους διακυβέρνησης Επιπέδου 2. Η μακροπρόθεσμη αποδοτικότητα των διεργασιών βελτιώθηκε."
+        },
+        {
+            "id": "trig-of-tlp-welcome",
+            "info": "Καλώς ήρθατε.\nΕίστε ο νέος CISO. Δεν έχει γίνει έλεγχος ασφαλείας για 18 μήνες.\nΌλες οι ενέργειες πρέπει να μείνουν εντός του προϋπολογισμού έως ότου ο CFO εγκρίνει πρόσθετο."
+        },
+        {
+            "id": "trig-of-tlp-watch-wb-hint1",
+            "info": "Χρησιμοποιείτε το Watch Board. Διαβάστε και επιβεβαιώστε τις Προγραμματισμένες Εργασίες σας και θα ανταμειφθείτε..."
+        },
+        {
+            "id": "trig-of-tlp-find-vulns-st",
+            "info": "Ελέγξτε το Watch Board.\nΝέα ενημέρωση απειλών διαθέσιμη.\nΕπιθεωρήστε τα στοιχεία του φορέα & βρείτε ευπάθειες που σχετίζονται με τις νέες απειλές."
+        },
+        {
+            "id": "trig-of-tlp-hardening1",
+            "info": "Ο οργανισμός είναι εκτεθειμένος σε νέες απειλές.\nΗ κατάσταση κυβερνοασφάλειας μειώθηκε.\nΕφαρμόστε ενέργειες ενίσχυσης εντός ορίων budget & χρόνου και αύξησε το CS > 70.\nΟι ενέργειες ενίσχυσης ξεκλειδώθηκαν."
+        },
+        {
+            "id": "trig-of-tlp-reporting1",
+            "info": "Μπράβο, αλλά η κατάσταση κυβερνοασφάλειας είναι χαμηλή.\nCEO & CFO χάνουν την εμπιστοσύνη τους.\n\nΣτείλτε σύντομη αναφορά για ανάκτηση εμπιστοσύνης & αύξηση budget.\nΑποφύγετε τεχνικές λεπτομέρειες."
+        },
+        {
+            "id": "trig-of-tlp-reporting2",
+            "info": "Χρησιμοποιήστε τα στοιχεία για να προετοιμάσετε την αναφορά σας.\nΕπιλέξτε τα σχετικά στοιχεία και κάντε κλικ στο κουμπί 'Για την έκθεση' για να τα επισυνάψετε.\nΣτη συνέχεια, επιλέξτε τις κατάλληλες ρυθμίσεις έκθεσης και στείλτε την."
+        },
+        {
+            "id": "trig-of-tlp-maturity-card-info",
+            "info": "Διαθέσιμη Στρατηγική Ωριμότητας. Νέες ενέργειες ενίσχυσης Επιπέδου 2 ξεκλειδώθηκαν στο Επίπεδο Δικτύου. Χρήση έκτακτου budget για βελτίωση ωριμότητας."
+        },
+        {
+            "id": "trig-of-tlp-end-session1",
+            "info": "Τέλος Session."
+        },
+        {
+            "id": "trig-of-wbi-st-ack-present-info1",
+            "info": "Επιβεβαίωσες μία προγραμματισμένη εργασία και αναγνώρισες τις αρμοδιότητές σου.\nΚέρδισες 1 AP."
+        },
+        {
+            "id": "trig-of-wbi-st-ack-present-info2",
+            "info": "Κέρδισες 1 AP."
+        },
+        {
+            "id": "trig-of-wbi-inspect-assets-completed",
+            "info": "Τα στοιχεία (assets) του οργανισμού ελέγχθηκαν."
+        },
+        {
+            "id": "trig-of-wbi-apply-hardening1-completed",
+            "info": "Οι εργασίες ενίσχυσεις εκτελέστηκαν."
+        },
+        {
+            "id": "trig-of-wbi-apply-reporting1-completed",
+            "info": "Η Νέα έκθεση δημιουργήθηκε.\nΗ εργαία διεκπαιρεώθηκε."
+        },
+        {
+            "id": "trig-present-info-on-isolate",
+            "info": "Η απομόνωση αποτελεί δραστικό μέτρο αντιμετώπισης, αλλά επηρεάζει τον επιχειρησιακό αντίκτυπο του οργανισμού (BI). Σύνδεσε όλα τα στοιχεία στο δίκτυο του οργανισμού."
+        },
+        {
+            "id": "trig-present-info-on-check-log",
+            "info": "Τα logs ελέγχθηκαν. Δεν υπάρχει κάτι ύποπτο."
+        },
+        {
+            "id": "trig-of-action-vpn-deployment-router-unlocked",
+            "info": "Νέα ενέργεια ξεκλειδώθηκε στο Router!!!"
+        },
+        {
+            "id": "trig-of-action-vpn-deployment-congratulations",
+            "info": "ΣΥΓΧΑΡΗΤΗΡΙΑ!!!\nΠρογραμματίστηκε η εγκατάσταση πύλης VPN.\nΗ τιμή CS θα αυξηθεί.\nΘα δημιουργηθούν νέα ευρήματα, Θα προστεθεί νέα ενέργεια στο Router!!!"
+        },
+        {
+            "id": "trig-of-action-train-employees-present-info",
+            "info": "Η εκπαίδευση του προσωπικού ολοκληρώθηκε. Οι εργαζόμενοι έλαβαν βασικές γνώσεις σχετικά με το ηλεκτρονικό ψάρεμα (phishing), τη διαχείριση κωδικών, την αναφορά ύποπτης δραστηριότητας και τον ασφαλή χειρισμό ευαίσθητων πληροφοριών."
+        },
+        {
+            "id": "trig-of-action-admin-mfa-present-info-congratulations",
+            "info": "ΣΥΓΧΑΡΗΤΗΡΙΑ!!!\nΗ πρόσβαση των διαχειριστών ενισχύθηκε με την απαίτηση MFA.\nΗ τιμή CS αυξήθηκε.\nΔημιουργήθηκαν νέα ευρήματα!"
+        },
+        {
+            "id": "trig-of-action-firewallrule-rdp--present-info-congratulations",
+            "info": "ΣΥΓΧΑΡΗΤΗΡΙΑ!!!\nΝέος κανόνας προστασίας προστέθηκε στο Router. Το εισερχόμενο TCP/3389 από το WAN μπλοκαρίστηκε και το RDP περιορίστηκε μόνο στο VPN tunnel.\nΗ τιμή CS αυξήθηκε.\nΔημιουργήθηκαν νέα ευρήματα!!!"
+        },
+        {
+            "id": "trig-of-action-continuous-login-monitoring-info",
+            "info": "Αυτοματοποιημένες ειδοποίησεις για ανωμαλίες αποτυχημένων συνδέσεων υλοποιήθηκε. Οι μελλοντικές προσπάθειες brute-force θα είναι ορατές σε πραγματικό χρόνο."
+        },
+        {
+            "id": "trig-of-action-start-login-monitoring-info",
+            "info": "Η αυτοματοποιημένη ειδοποίηση για ανωμαλίες αποτυχημένων συνδέσεων ξεκίνησε. Οι μελλοντικές προσπάθειες brute-force θα είναι ορατές σε πραγματικό χρόνο."
+        },
+        {
+            "id": "trig-of-action-org-wide-mfa-present-info",
+            "info": "Το MFA ρυθμίστηκε πλέον για όλους τους εργαζομένους του Οργανισμού."
+        },
+        {
+            "id": "trig-of-action-mature2-password-policy-present-info",
+            "info": "Δημιουργήθηκε & εφαρμόστηκε ώριμη πολιτική κωδικών πρόσβασης με αυτοματοποιημένες υπενθυμίσεις περιοδικής αλλαγής και επιβολή πολυπλοκότητας. Η πολιτική  χειροκίνητης υπενθύμισης αλλαγής κωδικών αντικαταστήθηκε."
+        },
+        {
+            "id": "trig-of-action-schedule-training-present-info",
+            "info": "Το πρόγραμμα εκπαίδευσης προσωπικού ορίστηκε. Η ανθεκτικότητα απέναντι στο phishing, τις πρακτικές αδύναμων κωδικών πρόσβασης και τη καθυστερημένη αναφορά περιστατικών βελτιώθηκε."
+        },
+        {
+
+        }
+    ],
+
+    "watchboard_items_texts":
+    [
+        {
+            "id": "wbi-welcome",
+            "text": "Καλώς ήρθατε. Είστε ο νέος CISO. Δεν έγινε security review για 18 μήνες. Όλες οι ενέργειες πρέπει να μείνουν εντός ορίου του budget μέχρι την έγκριση CFO για επιπλέον budget."
+        },
+        {
+            "id": "wbi-scheduledtask-inspect-assets1",
+            "text": "Έλεγχος τουλάχιστον 5 assets του οργανισμού για την εκτίμηση αρχικής εικόνας του οργανισμού."
+        },
+        {
+            "id": "wbi-background-phishing-threat",
+            "text": "Αρκετοί οργανισμοί έχουν αναφέρει μηνύματα ηλεκτρονικού ψαρέματος (phishing)."
+        },
+        {
+            "id": "wbi-rdp-bruteforce-threat",
+            "text": "Επιθέσεις brute force από επιτιθέμενους σε εκτεθειμένες RDP υπηρεσίες."
+        },
+        {
+            "id": "wbi-sql-injection-threat",
+            "text": "SQL injections απειλούν servers λόγω μη ασφαλής διαχείρισης input πελατών."
+        },
+        {
+            "id": "wbi-scheduled-task-find-vulns",
+            "text":"Σάρωσε 2 assets για τον εντοπισμό νέων απειλών & δημιουργία ευρημάτων"
+        },
+        {
+            "id": "wbi-scheduled-task-hardening1",
+            "text": "Εφάρμοσε ενέργειες θωράκισης Ωριμότητας Επιπέδου 1 με CS > 70. Λάβε υπόψη budget, διάρκεια & APs."
+        },
+        {
+            "id": "wbi-vpn-scheduled",
+            "text": "Η εγκατάσταση υποδομής VPN προγραμματίστηκε. Νέα ενέργεια θα εμφανιστεί σύντομα στο Router!!!"
+        },
+        {
+            "id": "wbi-scheduled-task-reporting1",
+            "text": "Ενημέρωση CEO/CFO. Συμπερίληψη ευρημάτων νέων απειλών. Έκθεση περίληψης, περιεκτική, μη τεχνική."
+        },
+        {
+            "id": "wbi-st-rdp-breach",
+            "text": "Το περιστατικό RDP brute force επιβεβαιώθηκε. Πρέπει να λάβεετε πρόσθετα μέτρα."
+        },
+        {
+            "id": "wbi-st-hardening2",
+            "text": "Επιβεβαίωση RDP brute force. Εφαρμογή ενεργειών Ενίσχυσης Επ. 2 για θωράκιση (CS>80)."
+        },
+        {
+            "id": "wbi-flashnews-emergency-budget",
+            "text": "Ο CFO ενέκρινε νέο budget. Απαιτείται ενίσχυση ασφάλειας οργανισμού έναντι επιθέσεων brute force."
+        }
+    ]
+}
