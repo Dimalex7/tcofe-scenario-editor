@@ -275,8 +275,8 @@
     "x_subject_Comment": "LEARNER",
     "property": 3,
     "x_property_Comment": "SET",
-    "objectID": [100, 125, 127, 130],
-    "objectTypes": "[CS_SOLUTION, ACCESS_CONFS_AND_POLICIES, MFA_POLICY, PASSWORD_RESET]",
+    "objectID": "",
+    "objectTypes": [100, 125, 127, 130],
     "x_object_Comment": "REPORT",
     "objectPredicate": 3,
     "x_objectPredicate": "OR",
@@ -5384,7 +5384,7 @@
             "sourceTypes": [-1],
             "x_source_Comment": "UNDEFINED",
             "targetID": "",
-            "targetTypes": 0,
+            "targetTypes": [],
             "x_target_Comment": "",
             "requiredCapabilities": [],
             "x_requiredCapabilities_Comment": "",
@@ -5906,7 +5906,7 @@
             "title": "Continually monitor failed logins",
             "numOfRoundsForCostDistribution": 15,
             "durationInRounds": 15,
-            "actionRepeatMode": "",
+            "actionRepeatMode": -1,
             "triggers":
             [
             {
@@ -6115,7 +6115,7 @@
             "sourceTypes": [-1],
             "x_source_Comment": "UNDEFINED",
             "targetID": "",
-            "targetTypes": 0,
+            "targetTypes": [],
             "x_target_Comment": "",
             "requiredCapabilities": [],
             "x_requiredCapabilities_Comment": "",
