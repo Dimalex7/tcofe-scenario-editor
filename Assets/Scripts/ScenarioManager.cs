@@ -5,6 +5,10 @@ using Newtonsoft.Json;
 
 public class ScenarioManager : MonoBehaviour
 {
+    public static ScenarioManager Instance { get; private set; }
+
+    public event System.Action OnScenarioLoaded;
+
     // Το σενάριο που είναι φορτωμένο αυτή τη στιγμή στη μνήμη
     [Header("Current Loaded Scenario")]
     public ScenarioData currentScenario;
@@ -12,6 +16,12 @@ public class ScenarioManager : MonoBehaviour
     // Προαιρετικό: σύρε εδώ το αρχείο SGTTX-20.json από το Unity για γρήγορο τεστ
     [Header("Testing")]
     public TextAsset sampleJsonFile;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     private void Start()
     {
@@ -47,6 +57,7 @@ public class ScenarioManager : MonoBehaviour
                       $"Στόχοι (Goals): {currentScenario.goals?.Count ?? 0}\n" +
                       $"Στοιχεία WatchBoard: {currentScenario.watch_board?.Count ?? 0}");
 
+            OnScenarioLoaded?.Invoke();
             return true;
         }
         catch (Exception ex)
