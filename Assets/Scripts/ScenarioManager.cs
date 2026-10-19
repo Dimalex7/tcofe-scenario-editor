@@ -17,6 +17,9 @@ public class ScenarioManager : MonoBehaviour
     [Header("Testing")]
     public TextAsset sampleJsonFile;
 
+    [Header("TopBar UI")]
+    public UnityEngine.UI.Button btnSaveJson;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -25,10 +28,35 @@ public class ScenarioManager : MonoBehaviour
 
     private void Start()
     {
+        if (btnSaveJson != null)
+        {
+            btnSaveJson.onClick.AddListener(OnSaveJsonButtonClicked);
+        }
+
         // Μόλις πατήσουμε Play, αν έχουμε βάλει sample file, το φορτώνουμε αυτόματα
         if (sampleJsonFile != null)
         {
             LoadScenarioFromText(sampleJsonFile.text);
+        }
+    }
+
+    public void OnSaveJsonButtonClicked()
+    {
+        string json = ExportScenarioToJson();
+        if (string.IsNullOrEmpty(json)) return;
+
+        string exportPath = Path.Combine(Application.dataPath, "SampleScenarios", "Exported_Scenario.json");
+        try
+        {
+            File.WriteAllText(exportPath, json);
+            Debug.Log($"<color=cyan><b>[ScenarioManager] Το σενάριο έγινε Export επιτυχώς!</b>\nΑποθηκεύτηκε στο: Assets/SampleScenarios/Exported_Scenario.json\nΜέγεθος: {json.Length} χαρακτήρες</color>");
+            #if UNITY_EDITOR
+            UnityEditor.AssetDatabase.Refresh();
+            #endif
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[ScenarioManager] Σφάλμα κατά την αποθήκευση του αρχείου JSON: {ex.Message}");
         }
     }
 
