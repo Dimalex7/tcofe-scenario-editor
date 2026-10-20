@@ -20,6 +20,11 @@ public class ScenarioManager : MonoBehaviour
     [Header("TopBar UI")]
     public UnityEngine.UI.Button btnSaveJson;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [System.Runtime.InteropServices.DllImport("__Internal")]
+    private static extern void DownloadFileFromBrowser(string filename, string content);
+#endif
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -45,6 +50,17 @@ public class ScenarioManager : MonoBehaviour
         string json = ExportScenarioToJson();
         if (string.IsNullOrEmpty(json)) return;
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+        try
+        {
+            DownloadFileFromBrowser("Exported_Scenario.json", json);
+            Debug.Log("[ScenarioManager] Started browser download for Exported_Scenario.json");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"[ScenarioManager] Σφάλμα κατά τη λήψη του αρχείου στον browser: {ex.Message}");
+        }
+#else
         string exportPath = Path.Combine(Application.dataPath, "SampleScenarios", "Exported_Scenario.json");
         try
         {
@@ -58,6 +74,7 @@ public class ScenarioManager : MonoBehaviour
         {
             Debug.LogError($"[ScenarioManager] Σφάλμα κατά την αποθήκευση του αρχείου JSON: {ex.Message}");
         }
+#endif
     }
 
     /// <summary>
