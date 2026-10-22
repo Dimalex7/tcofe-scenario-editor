@@ -9,11 +9,11 @@ public class ScenarioManager : MonoBehaviour
 
     public event System.Action OnScenarioLoaded;
 
-    // Το σενάριο που είναι φορτωμένο αυτή τη στιγμή στη μνήμη
+    // The scenario currently loaded in memory
     [Header("Current Loaded Scenario")]
     public ScenarioData currentScenario;
 
-    // Προαιρετικό: σύρε εδώ το αρχείο SGTTX-20.json από το Unity για γρήγορο τεστ
+    // Optional: drag the SGTTX-20.json file here from the Unity Project for a quick in-editor test
     [Header("Testing")]
     public TextAsset sampleJsonFile;
 
@@ -38,7 +38,7 @@ public class ScenarioManager : MonoBehaviour
             btnSaveJson.onClick.AddListener(OnSaveJsonButtonClicked);
         }
 
-        // Μόλις πατήσουμε Play, αν έχουμε βάλει sample file, το φορτώνουμε αυτόματα
+        // On Play, automatically load the sample file if one is assigned
         if (sampleJsonFile != null)
         {
             LoadScenarioFromText(sampleJsonFile.text);
@@ -58,27 +58,27 @@ public class ScenarioManager : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError($"[ScenarioManager] Σφάλμα κατά τη λήψη του αρχείου στον browser: {ex.Message}");
+            Debug.LogError($"[ScenarioManager] Failed to trigger browser file download: {ex.Message}");
         }
 #else
         string exportPath = Path.Combine(Application.dataPath, "SampleScenarios", "Exported_Scenario.json");
         try
         {
             File.WriteAllText(exportPath, json);
-            Debug.Log($"<color=cyan><b>[ScenarioManager] Το σενάριο έγινε Export επιτυχώς!</b>\nΑποθηκεύτηκε στο: Assets/SampleScenarios/Exported_Scenario.json\nΜέγεθος: {json.Length} χαρακτήρες</color>");
+            Debug.Log($"<color=cyan><b>[ScenarioManager] Scenario exported successfully!</b>\nSaved to: Assets/SampleScenarios/Exported_Scenario.json\nSize: {json.Length} characters</color>");
             #if UNITY_EDITOR
             UnityEditor.AssetDatabase.Refresh();
             #endif
         }
         catch (Exception ex)
         {
-            Debug.LogError($"[ScenarioManager] Σφάλμα κατά την αποθήκευση του αρχείου JSON: {ex.Message}");
+            Debug.LogError($"[ScenarioManager] Failed to save JSON file: {ex.Message}");
         }
 #endif
     }
 
     /// <summary>
-    /// Φορτώνει ένα σενάριο από κείμενο JSON (string)
+    /// Loads a scenario from a JSON string into memory.
     /// </summary>
     public bool LoadScenarioFromText(string jsonContent)
     {
@@ -93,33 +93,33 @@ public class ScenarioManager : MonoBehaviour
 
             currentScenario = JsonConvert.DeserializeObject<ScenarioData>(jsonContent, settings);
 
-            Debug.Log($"<color=green><b>[ScenarioManager] Το σενάριο φορτώθηκε επιτυχώς!</b></color>\n" +
-                      $"Τίτλος: {currentScenario.title}\n" +
-                      $"Έκδοση: {currentScenario.version}\n" +
-                      $"Γύροι (Rounds): {currentScenario.step_rounds?.Count ?? 0}\n" +
-                      $"Assets στο Store: {currentScenario.assets_store?.Count ?? 0}\n" +
-                      $"Actions στο Store: {currentScenario.actions_store?.Count ?? 0}\n" +
-                      $"Στόχοι (Goals): {currentScenario.goals?.Count ?? 0}\n" +
-                      $"Στοιχεία WatchBoard: {currentScenario.watch_board?.Count ?? 0}");
+            Debug.Log($"<color=green><b>[ScenarioManager] Scenario loaded successfully!</b></color>\n" +
+                      $"Title: {currentScenario.title}\n" +
+                      $"Version: {currentScenario.version}\n" +
+                      $"Rounds: {currentScenario.step_rounds?.Count ?? 0}\n" +
+                      $"Assets in Store: {currentScenario.assets_store?.Count ?? 0}\n" +
+                      $"Actions in Store: {currentScenario.actions_store?.Count ?? 0}\n" +
+                      $"Goals: {currentScenario.goals?.Count ?? 0}\n" +
+                      $"Watch Board items: {currentScenario.watch_board?.Count ?? 0}");
 
             OnScenarioLoaded?.Invoke();
             return true;
         }
         catch (Exception ex)
         {
-            Debug.LogError($"[ScenarioManager] Σφάλμα κατά τη φόρτωση του σεναρίου: {ex.Message}");
+            Debug.LogError($"[ScenarioManager] Failed to load scenario: {ex.Message}");
             return false;
         }
     }
 
     /// <summary>
-    /// Εξάγει το τρέχον σενάριο σε JSON μορφή
+    /// Serializes the currently loaded scenario to an indented JSON string.
     /// </summary>
     public string ExportScenarioToJson()
     {
         if (currentScenario == null)
         {
-            Debug.LogWarning("[ScenarioManager] Δεν υπάρχει φορτωμένο σενάριο για export.");
+            Debug.LogWarning("[ScenarioManager] No scenario is currently loaded — nothing to export.");
             return string.Empty;
         }
 
@@ -135,7 +135,8 @@ public class ScenarioManager : MonoBehaviour
 }
 
 /// <summary>
-/// Converter που διαχειρίζεται Enums ακόμα κι αν στο JSON υπάρχει κενό string "" ή απροσδόκητη τιμή
+/// A tolerant JSON converter for enums that gracefully handles empty strings (""),
+/// unknown values, or integer representations without throwing exceptions.
 /// </summary>
 public class TolerantEnumConverter : JsonConverter
 {

@@ -8,7 +8,7 @@ public class ActionStoreController : MonoBehaviour
 {
     [Header("List Column")]
     public Transform listContentContainer;          // ActionScrollView -> Viewport -> Content
-    public GameObject actionListItemPrefab;         // Το ίδιο Prefab από Assets/Prefabs/
+    public GameObject actionListItemPrefab;         // Shared prefab from Assets/Prefabs/
     public Button btnNewAction;                     // Btn_NewAction
 
     [Header("Form Fields")]
@@ -63,7 +63,7 @@ public class ActionStoreController : MonoBehaviour
 
     private void InitializeDropdowns()
     {
-        // 1. Property Dropdown (Ρήμα: Inspect, Isolate κλπ.)
+        // 1. Property dropdown (verb: Inspect, Isolate, etc.)
         if (dropdownProperty != null)
         {
             dropdownProperty.ClearOptions();
@@ -77,7 +77,7 @@ public class ActionStoreController : MonoBehaviour
             dropdownProperty.AddOptions(propNames);
         }
 
-        // 2. Subject Type Dropdown (Ποιος ενεργεί: Learner κλπ.)
+        // 2. Subject Type dropdown (who performs the action: Learner, etc.)
         if (dropdownSubjectType != null)
         {
             dropdownSubjectType.ClearOptions();
@@ -91,7 +91,7 @@ public class ActionStoreController : MonoBehaviour
             dropdownSubjectType.AddOptions(subNames);
         }
 
-        // 3. Object Type Dropdown (Σε ποιο asset: Router, Server κλπ.)
+        // 3. Object Type dropdown (target of the action: Router, Server, etc.)
         if (dropdownObjectType != null)
         {
             dropdownObjectType.ClearOptions();
@@ -105,7 +105,7 @@ public class ActionStoreController : MonoBehaviour
             dropdownObjectType.AddOptions(objNames);
         }
 
-        // 4. Repeat Mode Dropdown (REPEAT, NO_REPEAT κλπ.)
+        // 4. Repeat Mode dropdown (REPEAT, NO_REPEAT, etc.)
         if (dropdownRepeatMode != null)
         {
             dropdownRepeatMode.ClearOptions();
@@ -181,41 +181,42 @@ public class ActionStoreController : MonoBehaviour
     {
         currentSelectedAction = action;
 
-        // Χρωματισμός επιλεγμένου κουμπιού στη λίστα
+        // Reset previously selected list button color
         if (currentSelectedButtonObj != null)
         {
             var prevImg = currentSelectedButtonObj.GetComponent<Image>();
-            if (prevImg != null) prevImg.color = new Color(0.16f, 0.16f, 0.19f); // Σκούρο #2A2A30
+            if (prevImg != null) prevImg.color = new Color(0.16f, 0.16f, 0.19f); // Dark #2A2A30
         }
 
+        // Highlight newly selected list button
         if (actionListItems.TryGetValue(action, out GameObject btnObj))
         {
             currentSelectedButtonObj = btnObj;
             var currImg = currentSelectedButtonObj.GetComponent<Image>();
-            if (currImg != null) currImg.color = new Color(0.15f, 0.39f, 0.92f); // Μπλε #2563EB
+            if (currImg != null) currImg.color = new Color(0.15f, 0.39f, 0.92f); // Blue #2563EB
         }
 
-        // Γέμισμα πεδίων φόρμας
+        // Populate form fields with selected action data
         if (headerFormText != null) headerFormText.text = $"EDIT BASE ACTION: <color=#60A5FA>{action.id}</color>";
         if (inputID != null) inputID.text = action.id ?? "";
         if (inputTitle != null) inputTitle.text = action.title ?? "";
         if (inputAPCost != null) inputAPCost.text = action.apCost.ToString();
         if (inputBudgetCost != null) inputBudgetCost.text = action.budgetCost.ToString();
 
-        // Property Dropdown
+        // Property dropdown
         int propIndex = propertyValues.IndexOf(action.property);
         if (dropdownProperty != null) dropdownProperty.value = propIndex >= 0 ? propIndex : 0;
 
-        // SubjectType Dropdown
+        // SubjectType dropdown
         int subIndex = subjectTypeValues.IndexOf(action.subjectType);
         if (dropdownSubjectType != null) dropdownSubjectType.value = subIndex >= 0 ? subIndex : 0;
 
-        // ObjectType Dropdown
+        // ObjectType dropdown
         AssetType primaryObjType = (action.objectTypes != null && action.objectTypes.Count > 0) ? action.objectTypes[0] : AssetType.INFO;
         int objIndex = objectTypeValues.IndexOf(primaryObjType);
         if (dropdownObjectType != null) dropdownObjectType.value = objIndex >= 0 ? objIndex : 0;
 
-        // RepeatMode Dropdown
+        // RepeatMode dropdown
         int repIndex = repeatModeValues.IndexOf(action.actionRepeatMode);
         if (dropdownRepeatMode != null) dropdownRepeatMode.value = repIndex >= 0 ? repIndex : 0;
     }
@@ -227,7 +228,7 @@ public class ActionStoreController : MonoBehaviour
         currentSelectedAction.id = inputID != null ? inputID.text.Trim() : currentSelectedAction.id;
         currentSelectedAction.title = inputTitle != null ? inputTitle.text.Trim() : currentSelectedAction.title;
 
-        // Save Costs
+        // Save costs
         if (inputAPCost != null && int.TryParse(inputAPCost.text, out int ap))
         {
             currentSelectedAction.apCost = ap;
@@ -237,7 +238,7 @@ public class ActionStoreController : MonoBehaviour
             currentSelectedAction.budgetCost = budget;
         }
 
-        // Save Property (Verb)
+        // Save Property (verb)
         if (dropdownProperty != null && dropdownProperty.value < propertyValues.Count)
         {
             currentSelectedAction.property = propertyValues[dropdownProperty.value];
@@ -263,7 +264,7 @@ public class ActionStoreController : MonoBehaviour
             currentSelectedAction.actionRepeatMode = repeatModeValues[dropdownRepeatMode.value];
         }
 
-        // Update list button
+        // Refresh list button label
         if (actionListItems.TryGetValue(currentSelectedAction, out GameObject itemObj))
         {
             UpdateListItemUI(currentSelectedAction, itemObj);
@@ -271,7 +272,7 @@ public class ActionStoreController : MonoBehaviour
 
         if (headerFormText != null) headerFormText.text = $"EDIT BASE ACTION: <color=#60A5FA>{currentSelectedAction.id}</color>";
 
-        Debug.Log($"<color=green>[ActionStore] Αποθηκεύτηκαν οι αλλαγές για το action: {currentSelectedAction.id} ({currentSelectedAction.title})</color>");
+        Debug.Log($"<color=green>[ActionStore] Changes saved for action: {currentSelectedAction.id} ({currentSelectedAction.title})</color>");
     }
 
     private void OnCreateNewAction()
@@ -300,7 +301,7 @@ public class ActionStoreController : MonoBehaviour
         CreateListItem(newAction);
         SelectAction(newAction);
 
-        Debug.Log($"<color=cyan>[ActionStore] Δημιουργήθηκε νέο base action: {newAction.id}</color>");
+        Debug.Log($"<color=cyan>[ActionStore] New base action created: {newAction.id}</color>");
     }
 
     private void OnDeleteCurrentAction()
@@ -330,7 +331,7 @@ public class ActionStoreController : MonoBehaviour
             ClearForm();
         }
 
-        Debug.Log($"<color=yellow>[ActionStore] Διαγράφηκε το action: {deletedId}</color>");
+        Debug.Log($"<color=yellow>[ActionStore] Action deleted: {deletedId}</color>");
     }
 
     private void ClearForm()

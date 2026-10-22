@@ -8,7 +8,7 @@ public class RoundsController : MonoBehaviour
 {
     [Header("List Column")]
     public Transform listContentContainer;          // RoundListColumn -> Scroll View -> Viewport -> Content
-    public GameObject roundListItemPrefab;          // Το Prefab Assets/Prefabs/AssetListItem
+    public GameObject roundListItemPrefab;          // Prefab from Assets/Prefabs/AssetListItem
     public Button btnNewRound;                      // Btn_NewRound
 
     [Header("Form Fields - Info")]
@@ -119,18 +119,19 @@ public class RoundsController : MonoBehaviour
     {
         currentSelectedRound = round;
 
-        // Χρωματισμός επιλεγμένου κουμπιού στη λίστα
+        // Reset previously selected list button color
         if (currentSelectedButtonObj != null)
         {
             var prevImg = currentSelectedButtonObj.GetComponent<Image>();
-            if (prevImg != null) prevImg.color = new Color(0.16f, 0.16f, 0.19f); // Σκούρο #2A2A30
+            if (prevImg != null) prevImg.color = new Color(0.16f, 0.16f, 0.19f); // Dark #2A2A30
         }
 
+        // Highlight newly selected list button
         if (roundListItems.TryGetValue(round, out GameObject btnObj))
         {
             currentSelectedButtonObj = btnObj;
             var currImg = currentSelectedButtonObj.GetComponent<Image>();
-            if (currImg != null) currImg.color = new Color(0.15f, 0.39f, 0.92f); // Μπλε #2563EB
+            if (currImg != null) currImg.color = new Color(0.15f, 0.39f, 0.92f); // Blue #2563EB
         }
 
         if (round.stepMetrics == null)
@@ -138,12 +139,12 @@ public class RoundsController : MonoBehaviour
             round.stepMetrics = new Metrics();
         }
 
-        // Γέμισμα των πεδίων της φόρμας
+        // Populate form fields with selected round data
         if (headerFormText != null) headerFormText.text = $"EDIT STEP ROUND: <color=#60A5FA>{round.id}</color>";
         if (inputRoundID != null) inputRoundID.text = round.id ?? "";
         if (inputRoundLabel != null) inputRoundLabel.text = round.label ?? "";
 
-        // Γέμισμα των Metrics
+        // Populate metric fields
         if (inputAP != null) inputAP.text = round.stepMetrics.ActionPoints.ToString();
         if (inputBudget != null) inputBudget.text = round.stepMetrics.budget.ToString();
         if (inputCS != null) inputCS.text = round.stepMetrics.CS.ToString();
@@ -171,7 +172,7 @@ public class RoundsController : MonoBehaviour
         if (inputTrust != null && int.TryParse(inputTrust.text, out int trust)) currentSelectedRound.stepMetrics.trust = trust;
         if (inputDeadline != null && int.TryParse(inputDeadline.text, out int deadline)) currentSelectedRound.stepMetrics.deadline = deadline;
 
-        // Ενημέρωση του στοιχείου στη λίστα
+        // Refresh list button label
         if (roundListItems.TryGetValue(currentSelectedRound, out GameObject itemObj))
         {
             UpdateListItemUI(currentSelectedRound, itemObj);
@@ -179,7 +180,7 @@ public class RoundsController : MonoBehaviour
 
         if (headerFormText != null) headerFormText.text = $"EDIT STEP ROUND: <color=#60A5FA>{currentSelectedRound.id}</color>";
 
-        Debug.Log($"<color=green>[Rounds] Αποθηκεύτηκαν οι αλλαγές για τον γύρο: {currentSelectedRound.id} ({currentSelectedRound.label})</color>");
+        Debug.Log($"<color=green>[Rounds] Changes saved for round: {currentSelectedRound.id} ({currentSelectedRound.label})</color>");
     }
 
     private void OnCreateNewRound()
@@ -211,7 +212,7 @@ public class RoundsController : MonoBehaviour
         CreateListItem(newRound);
         SelectRound(newRound);
 
-        Debug.Log($"<color=cyan>[Rounds] Δημιουργήθηκε νέος γύρος: {newRound.id}</color>");
+        Debug.Log($"<color=cyan>[Rounds] New round created: {newRound.id}</color>");
     }
 
     private void OnDeleteCurrentRound()
@@ -241,7 +242,7 @@ public class RoundsController : MonoBehaviour
             ClearForm();
         }
 
-        Debug.Log($"<color=yellow>[Rounds] Διαγράφηκε ο γύρος: {deletedId}</color>");
+        Debug.Log($"<color=yellow>[Rounds] Round deleted: {deletedId}</color>");
     }
 
     private void ClearForm()

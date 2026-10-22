@@ -8,8 +8,8 @@ public class AssetStoreController : MonoBehaviour
 {
     [Header("List Column")]
     public Transform listContentContainer;      // AssetScrollView -> Viewport -> Content
-    public GameObject assetListItemPrefab;       // Το Prefab από το Assets/Prefabs/
-    public Button btnNewAsset;                  // Btn_NewAsset
+    public GameObject assetListItemPrefab;       // Prefab from Assets/Prefabs/
+    public Button btnNewAsset;                   // Btn_NewAsset
 
     [Header("Form Fields")]
     public TMP_Text headerFormText;             // Header_Form
@@ -105,7 +105,7 @@ public class AssetStoreController : MonoBehaviour
     {
         if (listContentContainer == null) return;
 
-        // Καθαρισμός προηγούμενων στοιχείων
+        // Clear previous list items
         foreach (Transform child in listContentContainer)
         {
             Destroy(child.gameObject);
@@ -163,37 +163,38 @@ public class AssetStoreController : MonoBehaviour
     {
         currentSelectedAsset = asset;
 
-        // Χρωματισμός επιλεγμένου κουμπιού στη λίστα
+        // Reset previously selected list button color
         if (currentSelectedButtonObj != null)
         {
             var prevImg = currentSelectedButtonObj.GetComponent<Image>();
-            if (prevImg != null) prevImg.color = new Color(0.16f, 0.16f, 0.19f); // Σκούρο #2A2A30
+            if (prevImg != null) prevImg.color = new Color(0.16f, 0.16f, 0.19f); // Dark #2A2A30
         }
 
+        // Highlight newly selected list button
         if (assetListItems.TryGetValue(asset, out GameObject btnObj))
         {
             currentSelectedButtonObj = btnObj;
             var currImg = currentSelectedButtonObj.GetComponent<Image>();
-            if (currImg != null) currImg.color = new Color(0.15f, 0.39f, 0.92f); // Μπλε #2563EB
+            if (currImg != null) currImg.color = new Color(0.15f, 0.39f, 0.92f); // Blue #2563EB
         }
 
-        // Γέμισμα των πεδίων της φόρμας
+        // Populate form fields with selected asset data
         if (headerFormText != null) headerFormText.text = $"EDIT BASE ASSET: <color=#60A5FA>{asset.id}</color>";
         if (inputID != null) inputID.text = asset.id ?? "";
         if (inputTitle != null) inputTitle.text = asset.title ?? "";
         if (inputCaption != null) inputCaption.text = asset.caption ?? "";
         if (inputDescription != null) inputDescription.text = asset.description ?? "";
 
-        // Επιλογή στο Dropdown Type
+        // Set AssetType dropdown
         AssetType primaryType = (asset.types != null && asset.types.Count > 0) ? asset.types[0] : AssetType.INFO;
         int typeIndex = assetTypeValues.IndexOf(primaryType);
         if (dropdownType != null) dropdownType.value = typeIndex >= 0 ? typeIndex : 0;
 
-        // Επιλογή στο Dropdown OpState
+        // Set OperationalState dropdown
         int opIndex = opStateValues.IndexOf(asset.operationalState);
         if (dropdownOpState != null) dropdownOpState.value = opIndex >= 0 ? opIndex : 0;
 
-        // Επιλογή στο Dropdown SecState
+        // Set SecurityState dropdown
         int secIndex = secStateValues.IndexOf(asset.securityState);
         if (dropdownSecState != null) dropdownSecState.value = secIndex >= 0 ? secIndex : 0;
     }
@@ -207,7 +208,7 @@ public class AssetStoreController : MonoBehaviour
         currentSelectedAsset.caption = inputCaption != null ? inputCaption.text.Trim() : currentSelectedAsset.caption;
         currentSelectedAsset.description = inputDescription != null ? inputDescription.text.Trim() : currentSelectedAsset.description;
 
-        // Αποθήκευση Τύπου
+        // Save AssetType
         if (dropdownType != null && dropdownType.value < assetTypeValues.Count)
         {
             if (currentSelectedAsset.types == null) currentSelectedAsset.types = new List<AssetType>();
@@ -215,19 +216,19 @@ public class AssetStoreController : MonoBehaviour
             currentSelectedAsset.types.Add(assetTypeValues[dropdownType.value]);
         }
 
-        // Αποθήκευση Operational State
+        // Save OperationalState
         if (dropdownOpState != null && dropdownOpState.value < opStateValues.Count)
         {
             currentSelectedAsset.operationalState = opStateValues[dropdownOpState.value];
         }
 
-        // Αποθήκευση Security State
+        // Save SecurityState
         if (dropdownSecState != null && dropdownSecState.value < secStateValues.Count)
         {
             currentSelectedAsset.securityState = secStateValues[dropdownSecState.value];
         }
 
-        // Ενημέρωση του κουμπιού στη λίστα
+        // Refresh the list button label
         if (assetListItems.TryGetValue(currentSelectedAsset, out GameObject itemObj))
         {
             UpdateListItemUI(currentSelectedAsset, itemObj);
@@ -235,7 +236,7 @@ public class AssetStoreController : MonoBehaviour
 
         if (headerFormText != null) headerFormText.text = $"EDIT BASE ASSET: <color=#60A5FA>{currentSelectedAsset.id}</color>";
 
-        Debug.Log($"<color=green>[AssetStore] Αποθηκεύτηκαν οι αλλαγές για το asset: {currentSelectedAsset.id} ({currentSelectedAsset.title})</color>");
+        Debug.Log($"<color=green>[AssetStore] Changes saved for asset: {currentSelectedAsset.id} ({currentSelectedAsset.title})</color>");
     }
 
     private void OnCreateNewAsset()
@@ -261,7 +262,7 @@ public class AssetStoreController : MonoBehaviour
         CreateListItem(newAsset);
         SelectAsset(newAsset);
 
-        Debug.Log($"<color=cyan>[AssetStore] Δημιουργήθηκε νέο base asset: {newAsset.id}</color>");
+        Debug.Log($"<color=cyan>[AssetStore] New base asset created: {newAsset.id}</color>");
     }
 
     private void OnDeleteCurrentAsset()
@@ -291,7 +292,7 @@ public class AssetStoreController : MonoBehaviour
             ClearForm();
         }
 
-        Debug.Log($"<color=yellow>[AssetStore] Διαγράφηκε το asset: {deletedId}</color>");
+        Debug.Log($"<color=yellow>[AssetStore] Asset deleted: {deletedId}</color>");
     }
 
     private void ClearForm()

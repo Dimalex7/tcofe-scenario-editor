@@ -19,8 +19,8 @@ public class UIManager : MonoBehaviour
     public Button btnGoals;
 
     [Header("Tab Colors")]
-    public Color activeTabColor = new Color(0.15f, 0.39f, 0.92f); // Μπλε (#2563EB)
-    public Color inactiveTabColor = new Color(0.15f, 0.15f, 0.17f); // Σκούρο (#27272A)
+    public Color activeTabColor = new Color(0.15f, 0.39f, 0.92f);   // Active blue (#2563EB)
+    public Color inactiveTabColor = new Color(0.15f, 0.15f, 0.17f); // Dark inactive (#27272A)
 
     private void Awake()
     {
@@ -30,13 +30,13 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        // Σύνδεση των OnClick listeners στα κουμπιά της Sidebar
+        // Wire up sidebar button OnClick listeners
         if (btnAssetStore != null) btnAssetStore.onClick.AddListener(ShowAssetStore);
         if (btnActionStore != null) btnActionStore.onClick.AddListener(ShowActionStore);
         if (btnRounds != null) btnRounds.onClick.AddListener(ShowRounds);
         if (btnGoals != null) btnGoals.onClick.AddListener(ShowGoals);
 
-        // Προεπιλογή: Άνοιγμα του Asset Store στην αρχή
+        // Default: open the Asset Store panel on startup
         ShowAssetStore();
     }
 
@@ -62,13 +62,13 @@ public class UIManager : MonoBehaviour
 
     private void SetActivePanel(GameObject activePanel, Button activeButton)
     {
-        // Εμφάνιση μόνο του ενεργού panel
+        // Show only the active panel; hide all others
         if (panelAssetStore) panelAssetStore.SetActive(panelAssetStore == activePanel);
         if (panelActionStore) panelActionStore.SetActive(panelActionStore == activePanel);
         if (panelRounds) panelRounds.SetActive(panelRounds == activePanel);
         if (panelGoals) panelGoals.SetActive(panelGoals == activePanel);
 
-        // Αλλαγή χρώματος στα κουμπιά για να φαίνεται ποιο tab είναι επιλεγμένο
+        // Highlight the active tab button; reset all others
         SetButtonColor(btnAssetStore, btnAssetStore == activeButton);
         SetButtonColor(btnActionStore, btnActionStore == activeButton);
         SetButtonColor(btnRounds, btnRounds == activeButton);

@@ -18,7 +18,7 @@ public class GoalsController : MonoBehaviour
     public TMP_InputField inputRound;               // Input_Round (-1 = Global, 0 = Round 1, etc.)
     public TMP_Dropdown dropdownProperty;           // Dropdown_Property
     public TMP_Dropdown dropdownObjectType;         // Dropdown_ObjectType
-    public TMP_InputField inputTargetCount;         // Input_TargetCount (Threshold or Number of actions)
+    public TMP_InputField inputTargetCount;         // Input_TargetCount (SEF threshold or number of actions)
 
     [Header("Form Buttons")]
     public Button btnSaveGoal;                      // Btn_SaveGoal
@@ -60,7 +60,7 @@ public class GoalsController : MonoBehaviour
 
     private void InitializeDropdowns()
     {
-        // 1. GoalType Dropdown
+        // 1. GoalType dropdown
         if (dropdownGoalType != null)
         {
             dropdownGoalType.ClearOptions();
@@ -74,7 +74,7 @@ public class GoalsController : MonoBehaviour
             dropdownGoalType.AddOptions(typeNames);
         }
 
-        // 2. Property Dropdown (INSPECT, ISOLATE, etc.)
+        // 2. Property dropdown (INSPECT, ISOLATE, etc.)
         if (dropdownProperty != null)
         {
             dropdownProperty.ClearOptions();
@@ -88,7 +88,7 @@ public class GoalsController : MonoBehaviour
             dropdownProperty.AddOptions(propNames);
         }
 
-        // 3. ObjectType Dropdown
+        // 3. ObjectType dropdown
         if (dropdownObjectType != null)
         {
             dropdownObjectType.ClearOptions();
@@ -164,39 +164,40 @@ public class GoalsController : MonoBehaviour
     {
         currentSelectedGoal = goal;
 
-        // Χρωματισμός επιλεγμένου κουμπιού στη λίστα
+        // Reset previously selected list button color
         if (currentSelectedButtonObj != null)
         {
             var prevImg = currentSelectedButtonObj.GetComponent<Image>();
-            if (prevImg != null) prevImg.color = new Color(0.16f, 0.16f, 0.19f); // Σκούρο #2A2A30
+            if (prevImg != null) prevImg.color = new Color(0.16f, 0.16f, 0.19f); // Dark #2A2A30
         }
 
+        // Highlight newly selected list button
         if (goalListItems.TryGetValue(goal, out GameObject btnObj))
         {
             currentSelectedButtonObj = btnObj;
             var currImg = currentSelectedButtonObj.GetComponent<Image>();
-            if (currImg != null) currImg.color = new Color(0.15f, 0.39f, 0.92f); // Μπλε #2563EB
+            if (currImg != null) currImg.color = new Color(0.15f, 0.39f, 0.92f); // Blue #2563EB
         }
 
-        // Γέμισμα πεδίων φόρμας
+        // Populate form fields with selected goal data
         if (headerFormText != null) headerFormText.text = $"EDIT GOAL: <color=#60A5FA>{goal.id}</color>";
         if (inputGoalID != null) inputGoalID.text = goal.id ?? "";
         if (inputRound != null) inputRound.text = goal.round.ToString();
 
-        // GoalType Dropdown
+        // GoalType dropdown
         int typeIndex = goalTypeValues.IndexOf(goal.type);
         if (dropdownGoalType != null) dropdownGoalType.value = typeIndex >= 0 ? typeIndex : 0;
 
-        // Property Dropdown
+        // Property dropdown
         int propIndex = propertyValues.IndexOf(goal.property);
         if (dropdownProperty != null) dropdownProperty.value = propIndex >= 0 ? propIndex : 0;
 
-        // ObjectType Dropdown
+        // ObjectType dropdown
         AssetType primaryObjType = (goal.objectTypes != null && goal.objectTypes.Count > 0) ? goal.objectTypes[0] : AssetType.INFO;
         int objIndex = objectTypeValues.IndexOf(primaryObjType);
         if (dropdownObjectType != null) dropdownObjectType.value = objIndex >= 0 ? objIndex : 0;
 
-        // Target Count / Threshold (από SEF ή default)
+        // Target count / threshold (from first SEF entry or default 0)
         int targetValue = 0;
         if (goal.sefs != null && goal.sefs.Count > 0)
         {
@@ -234,7 +235,7 @@ public class GoalsController : MonoBehaviour
             currentSelectedGoal.objectTypes.Add(objectTypeValues[dropdownObjectType.value]);
         }
 
-        // Save Target Count into SEF
+        // Save target count into the first SEF entry
         if (inputTargetCount != null && int.TryParse(inputTargetCount.text, out int targetVal))
         {
             if (currentSelectedGoal.sefs == null) currentSelectedGoal.sefs = new List<SEF>();
@@ -249,7 +250,7 @@ public class GoalsController : MonoBehaviour
             sef.property = currentSelectedGoal.property;
         }
 
-        // Ενημέρωση του στοιχείου στη λίστα
+        // Refresh list button label
         if (goalListItems.TryGetValue(currentSelectedGoal, out GameObject itemObj))
         {
             UpdateListItemUI(currentSelectedGoal, itemObj);
@@ -257,7 +258,7 @@ public class GoalsController : MonoBehaviour
 
         if (headerFormText != null) headerFormText.text = $"EDIT GOAL: <color=#60A5FA>{currentSelectedGoal.id}</color>";
 
-        Debug.Log($"<color=green>[Goals] Αποθηκεύτηκαν οι αλλαγές για τον στόχο: {currentSelectedGoal.id}</color>");
+        Debug.Log($"<color=green>[Goals] Changes saved for goal: {currentSelectedGoal.id}</color>");
     }
 
     private void OnCreateNewGoal()
@@ -272,7 +273,7 @@ public class GoalsController : MonoBehaviour
         {
             id = $"base-goal-{newIndex}",
             type = GoalType.ACTIONS_SPECIFIC_TYPE_COUNT,
-            round = -1, // Global
+            round = -1, // -1 = Global goal (not tied to a specific round)
             subjectType = AssetType.LEARNER,
             property = Property.INSPECT,
             objectTypes = new List<AssetType> { AssetType.WORKSTATION },
@@ -293,7 +294,7 @@ public class GoalsController : MonoBehaviour
         CreateListItem(newGoal);
         SelectGoal(newGoal);
 
-        Debug.Log($"<color=cyan>[Goals] Δημιουργήθηκε νέος στόχος: {newGoal.id}</color>");
+        Debug.Log($"<color=cyan>[Goals] New goal created: {newGoal.id}</color>");
     }
 
     private void OnDeleteCurrentGoal()
@@ -323,7 +324,7 @@ public class GoalsController : MonoBehaviour
             ClearForm();
         }
 
-        Debug.Log($"<color=yellow>[Goals] Διαγράφηκε ο στόχος: {deletedId}</color>");
+        Debug.Log($"<color=yellow>[Goals] Goal deleted: {deletedId}</color>");
     }
 
     private void ClearForm()

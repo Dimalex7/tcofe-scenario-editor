@@ -16,24 +16,24 @@ public static class ScenarioValidator
 
         if (scenario == null)
         {
-            result.Errors.Add("Δεν υπάρχει φορτωμένο σενάριο στη μνήμη!");
+            result.Errors.Add("No scenario is currently loaded in memory.");
             return result;
         }
 
-        // 1. Έλεγχος Metadata Σεναρίου
+        // 1. Scenario metadata checks
         if (string.IsNullOrWhiteSpace(scenario.title))
         {
-            result.Warnings.Add("[Metadata] Ο τίτλος του σεναρίου είναι κενός.");
+            result.Warnings.Add("[Metadata] Scenario title is empty.");
         }
         if (string.IsNullOrWhiteSpace(scenario.version))
         {
-            result.Warnings.Add("[Metadata] Η έκδοση του σεναρίου είναι κενή.");
+            result.Warnings.Add("[Metadata] Scenario version is empty.");
         }
 
-        // 2. Έλεγχος Asset Store
+        // 2. Asset Store checks
         if (scenario.assets_store == null || scenario.assets_store.Count == 0)
         {
-            result.Errors.Add("[Assets] Το Asset Store είναι άδειο (δεν υπάρχουν πρότυπα assets).");
+            result.Errors.Add("[Assets] The Asset Store is empty — no base asset templates found.");
         }
         else
         {
@@ -43,17 +43,17 @@ public static class ScenarioValidator
                 var asset = scenario.assets_store[i];
                 if (asset == null)
                 {
-                    result.Errors.Add($"[Assets] Το asset στη θέση #{i + 1} είναι null.");
+                    result.Errors.Add($"[Assets] Asset at position #{i + 1} is null.");
                     continue;
                 }
 
                 if (string.IsNullOrWhiteSpace(asset.id))
                 {
-                    result.Errors.Add($"[Assets] Το asset '{asset.title}' στη θέση #{i + 1} έχει κενό ID!");
+                    result.Errors.Add($"[Assets] Asset '{asset.title}' at position #{i + 1} has an empty ID.");
                 }
                 else if (seenAssetIds.Contains(asset.id))
                 {
-                    result.Errors.Add($"[Assets] Διπλότυπο ID: Το ID '{asset.id}' χρησιμοποιείται πάνω από μία φορά!");
+                    result.Errors.Add($"[Assets] Duplicate ID: '{asset.id}' is used more than once.");
                 }
                 else
                 {
@@ -62,15 +62,15 @@ public static class ScenarioValidator
 
                 if (string.IsNullOrWhiteSpace(asset.title))
                 {
-                    result.Warnings.Add($"[Assets] Το asset '{asset.id}' δεν έχει τίτλο.");
+                    result.Warnings.Add($"[Assets] Asset '{asset.id}' has no title.");
                 }
             }
         }
 
-        // 3. Έλεγχος Action Store
+        // 3. Action Store checks
         if (scenario.actions_store == null || scenario.actions_store.Count == 0)
         {
-            result.Errors.Add("[Actions] Το Action Store είναι άδειο (δεν υπάρχουν ενέργειες).");
+            result.Errors.Add("[Actions] The Action Store is empty — no base action templates found.");
         }
         else
         {
@@ -80,17 +80,17 @@ public static class ScenarioValidator
                 var action = scenario.actions_store[i];
                 if (action == null)
                 {
-                    result.Errors.Add($"[Actions] Το action στη θέση #{i + 1} είναι null.");
+                    result.Errors.Add($"[Actions] Action at position #{i + 1} is null.");
                     continue;
                 }
 
                 if (string.IsNullOrWhiteSpace(action.id))
                 {
-                    result.Errors.Add($"[Actions] Το action '{action.title}' στη θέση #{i + 1} έχει κενό ID!");
+                    result.Errors.Add($"[Actions] Action '{action.title}' at position #{i + 1} has an empty ID.");
                 }
                 else if (seenActionIds.Contains(action.id))
                 {
-                    result.Errors.Add($"[Actions] Διπλότυπο ID: Το ID '{action.id}' χρησιμοποιείται πάνω από μία φορά!");
+                    result.Errors.Add($"[Actions] Duplicate ID: '{action.id}' is used more than once.");
                 }
                 else
                 {
@@ -99,20 +99,20 @@ public static class ScenarioValidator
 
                 if (string.IsNullOrWhiteSpace(action.title))
                 {
-                    result.Warnings.Add($"[Actions] Το action '{action.id}' δεν έχει τίτλο.");
+                    result.Warnings.Add($"[Actions] Action '{action.id}' has no title.");
                 }
 
                 if (action.property == Property.UNDEFINED)
                 {
-                    result.Warnings.Add($"[Actions] Το action '{action.id}' έχει απροσδιόριστο Property (UNDEFINED).");
+                    result.Warnings.Add($"[Actions] Action '{action.id}' has an undefined Property (UNDEFINED).");
                 }
             }
         }
 
-        // 4. Έλεγχος Step Rounds
+        // 4. Step Rounds checks
         if (scenario.step_rounds == null || scenario.step_rounds.Count == 0)
         {
-            result.Errors.Add("[Rounds] Το σενάριο δεν περιέχει κανέναν Γύρο (Step Round)!");
+            result.Errors.Add("[Rounds] The scenario contains no Step Rounds.");
         }
         else
         {
@@ -122,17 +122,17 @@ public static class ScenarioValidator
                 var round = scenario.step_rounds[i];
                 if (round == null)
                 {
-                    result.Errors.Add($"[Rounds] Ο γύρος στη θέση #{i + 1} είναι null.");
+                    result.Errors.Add($"[Rounds] Round at position #{i + 1} is null.");
                     continue;
                 }
 
                 if (string.IsNullOrWhiteSpace(round.id))
                 {
-                    result.Errors.Add($"[Rounds] Ο γύρος #{i + 1} έχει κενό ID!");
+                    result.Errors.Add($"[Rounds] Round #{i + 1} has an empty ID.");
                 }
                 else if (seenRoundIds.Contains(round.id))
                 {
-                    result.Errors.Add($"[Rounds] Διπλότυπο ID: Ο γύρος '{round.id}' υπάρχει παραπάνω από μία φορά!");
+                    result.Errors.Add($"[Rounds] Duplicate ID: Round '{round.id}' appears more than once.");
                 }
                 else
                 {
@@ -141,15 +141,15 @@ public static class ScenarioValidator
 
                 if (round.stepMetrics == null)
                 {
-                    result.Warnings.Add($"[Rounds] Ο γύρος '{round.id}' δεν έχει αρχικοποιημένα Metrics.");
+                    result.Warnings.Add($"[Rounds] Round '{round.id}' has no Metrics initialized.");
                 }
             }
         }
 
-        // 5. Έλεγχος Goals
+        // 5. Goals checks
         if (scenario.goals == null || scenario.goals.Count == 0)
         {
-            result.Warnings.Add("[Goals] Το σενάριο δεν περιέχει κανέναν Στόχο (Goal).");
+            result.Warnings.Add("[Goals] The scenario contains no Goals.");
         }
         else
         {
@@ -159,17 +159,17 @@ public static class ScenarioValidator
                 var goal = scenario.goals[i];
                 if (goal == null)
                 {
-                    result.Errors.Add($"[Goals] Ο στόχος στη θέση #{i + 1} είναι null.");
+                    result.Errors.Add($"[Goals] Goal at position #{i + 1} is null.");
                     continue;
                 }
 
                 if (string.IsNullOrWhiteSpace(goal.id))
                 {
-                    result.Errors.Add($"[Goals] Ο στόχος στη θέση #{i + 1} έχει κενό ID!");
+                    result.Errors.Add($"[Goals] Goal at position #{i + 1} has an empty ID.");
                 }
                 else if (seenGoalIds.Contains(goal.id))
                 {
-                    result.Errors.Add($"[Goals] Διπλότυπο ID: Ο στόχος '{goal.id}' υπάρχει παραπάνω από μία φορά!");
+                    result.Errors.Add($"[Goals] Duplicate ID: Goal '{goal.id}' appears more than once.");
                 }
                 else
                 {
@@ -178,13 +178,13 @@ public static class ScenarioValidator
 
                 if (goal.type == GoalType.UNDEFINED)
                 {
-                    result.Warnings.Add($"[Goals] Ο στόχος '{goal.id}' έχει απροσδιόριστο Goal Type.");
+                    result.Warnings.Add($"[Goals] Goal '{goal.id}' has an undefined Goal Type.");
                 }
 
-                // Έλεγχος αν ο γύρος στον οποίο αναφέρεται ο στόχος υπάρχει
+                // Validate that the referenced round index exists
                 if (goal.round >= 0 && scenario.step_rounds != null && goal.round >= scenario.step_rounds.Count)
                 {
-                    result.Errors.Add($"[Goals] Ο στόχος '{goal.id}' αναφέρεται στον Γύρο #{goal.round + 1}, αλλά το σενάριο έχει μόνο {scenario.step_rounds.Count} γύρους!");
+                    result.Errors.Add($"[Goals] Goal '{goal.id}' references Round #{goal.round + 1}, but the scenario only has {scenario.step_rounds.Count} round(s).");
                 }
             }
         }

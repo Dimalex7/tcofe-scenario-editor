@@ -5,14 +5,14 @@ using TMPro;
 public class ValidationModalController : MonoBehaviour
 {
     [Header("Modal Root")]
-    public GameObject modalRoot;            // Το Panel του Popup (ValidationModal)
-    public Button btnValidateTopBar;        // Το κουμπί Btn_Validate στην TopBar
-    public Button btnCloseModal;            // Το κουμπί Close μέσα στο Popup
+    public GameObject modalRoot;            // The validation popup panel (ValidationModal)
+    public Button btnValidateTopBar;        // The Btn_Validate button in the TopBar
+    public Button btnCloseModal;            // The Close button inside the popup
 
     [Header("UI Feedback")]
-    public TMP_Text statusBannerText;       // Τίτλος: "SCENARIO IS VALID!" ή "FOUND X ISSUES"
-    public Image statusBannerImage;         // Χρώμα μπάρας τίτλου (Πράσινο / Κόκκινο)
-    public TMP_Text detailsText;            // Αναλυτικό κείμενο σφαλμάτων και προειδοποιήσεων
+    public TMP_Text statusBannerText;       // Title banner: "SCENARIO IS VALID!" or "FOUND X ISSUES!"
+    public Image statusBannerImage;         // Banner background color (green / red)
+    public TMP_Text detailsText;            // Detailed errors and warnings text
 
     [Header("Colors")]
     public Color validColor = new Color(0.09f, 0.64f, 0.29f);   // Green (#16A34A)
@@ -50,10 +50,10 @@ public class ValidationModalController : MonoBehaviour
             if (statusBannerText != null) statusBannerText.text = "SCENARIO IS VALID!";
             if (statusBannerImage != null) statusBannerImage.color = validColor;
 
-            string details = "<color=#22C55E><b>Όλοι οι έλεγχοι εγκυρότητας πέρασαν επιτυχώς!</b></color>\nΤο σενάριο έχει σωστή δομή, μοναδικά IDs και είναι έτοιμο για εξαγωγή.";
+            string details = "<color=#22C55E><b>All validation checks passed successfully!</b></color>\nThe scenario has a valid structure, unique IDs, and is ready for export.";
             if (result.Warnings.Count > 0)
             {
-                details += "\n\n<color=#FBBF24><b>Προειδοποιήσεις (Warnings):</b></color>\n";
+                details += "\n\n<color=#FBBF24><b>Warnings:</b></color>\n";
                 foreach (var w in result.Warnings)
                 {
                     details += $"• {w}\n";
@@ -66,7 +66,7 @@ public class ValidationModalController : MonoBehaviour
             if (statusBannerText != null) statusBannerText.text = $"FOUND {result.Errors.Count} ISSUES!";
             if (statusBannerImage != null) statusBannerImage.color = invalidColor;
 
-            string details = $"<color=#EF4444><b>Εντοπίστηκαν {result.Errors.Count} κρίσιμα σφάλματα:</b></color>\n";
+            string details = $"<color=#EF4444><b>{result.Errors.Count} critical error(s) found:</b></color>\n";
             foreach (var err in result.Errors)
             {
                 details += $"• <color=#FCA5A5>{err}</color>\n";
@@ -74,7 +74,7 @@ public class ValidationModalController : MonoBehaviour
 
             if (result.Warnings.Count > 0)
             {
-                details += "\n<color=#FBBF24><b>Προειδοποιήσεις (Warnings):</b></color>\n";
+                details += "\n<color=#FBBF24><b>Warnings:</b></color>\n";
                 foreach (var w in result.Warnings)
                 {
                     details += $"• {w}\n";
